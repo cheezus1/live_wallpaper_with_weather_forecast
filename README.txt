@@ -1,6 +1,7 @@
 Android live wallpaper with weather forecast
 
-  = This project is developed by Bozhidar Nikolov and Kiril Kostadinov for the subject "Technology of programming" with their teacher Kiril Mitov.
+  = This project is developed by Bozhidar Nikolov and Kiril Kostadinov for the subject 
+    "Technology of programming" with their teacher Kiril Mitov.
 
   = The project represents an android application, which includes:
     - interactive user interface with various functionalities
