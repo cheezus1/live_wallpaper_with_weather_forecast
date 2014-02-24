@@ -1,6 +1,7 @@
 package com.bk.theweatherlive;
 
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 
 import android.os.Bundle;
@@ -15,8 +16,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class WeatherNow extends FragmentActivity {
 
@@ -34,6 +38,7 @@ public class WeatherNow extends FragmentActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+    ImageButton refreshButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +54,31 @@ public class WeatherNow extends FragmentActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(1);
+        
+        initRefreshButton();
 
     }
 
+    public void initRefreshButton() {
+    	refreshButton = (ImageButton) findViewById(R.id.refreshButton);
+    	final View updateProgress = findViewById(R.id.updateProgress);
+    	
+    	refreshButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// THIS IS A PLACEHOLDER CODE! IT WILL BE REPLACED IN LATER VERSIONS!
+				
+				updateProgress.setVisibility(View.VISIBLE);
+				Toast.makeText(WeatherNow.this, "Update Button is clicked", Toast.LENGTH_SHORT).show();
+				// I need to wait a couple of seconds here but for some reason sleep doesn't work 
+				//(neither does wait)
+				//updateProgress.setVisibility(View.INVISIBLE);
+			}
+    		
+    	});
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
