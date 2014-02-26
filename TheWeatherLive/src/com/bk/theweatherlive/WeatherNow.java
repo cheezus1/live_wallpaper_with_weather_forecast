@@ -86,6 +86,19 @@ public class WeatherNow extends FragmentActivity {
         return true;
     }
     
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch(item.getItemId()) {
+    		case R.id.action_settings:
+    			return true;
+    		case R.id.action_help:
+    			return true;
+    		case R.id.action_about:
+    			return true;
+    		default:
+    			return super.onOptionsItemSelected(item);
+    	}
+    }
+    
     
 
     /**
