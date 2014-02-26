@@ -105,9 +105,9 @@ public class WeatherNow extends FragmentActivity {
     		case R.id.action_about:
     			new AlertDialog.Builder(this)
     			.setTitle(WeatherNow.this.getResources().getString(R.string.app_name))
-    		    .setMessage("Live wallpaper with weather forecast.")
-    		    .setIcon(R.drawable.ic_launcher)
-    		     .show();
+    			.setMessage("Live wallpaper with weather forecast.")
+    			.setIcon(R.drawable.ic_launcher)
+    			.show();
     			return true;
     		default:
     			return super.onOptionsItemSelected(item);
