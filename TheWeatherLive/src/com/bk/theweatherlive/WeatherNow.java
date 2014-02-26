@@ -1,17 +1,16 @@
 package com.bk.theweatherlive;
 
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
-
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +18,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class WeatherNow extends FragmentActivity {
@@ -89,10 +87,27 @@ public class WeatherNow extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch(item.getItemId()) {
     		case R.id.action_settings:
+    			Context context1 = getApplicationContext();
+    			CharSequence text1 = "Settings pressed...";
+    			int duration1 = Toast.LENGTH_SHORT;
+
+    			Toast toast1 = Toast.makeText(context1, text1, duration1);
+    			toast1.show();
     			return true;
     		case R.id.action_help:
+    			Context context2 = getApplicationContext();
+    			CharSequence text2 = "Help pressed...";
+    			int duration2 = Toast.LENGTH_SHORT;
+
+    			Toast toast2 = Toast.makeText(context2, text2, duration2);
+    			toast2.show();
     			return true;
     		case R.id.action_about:
+    			new AlertDialog.Builder(this)
+    			.setTitle(WeatherNow.this.getResources().getString(R.string.app_name))
+    		    .setMessage("This application is developed by Bozhidar Nikolov and Kiril Kostadinov")
+    		    .setPositiveButton(R.string.button_close, null)
+    		     .show();
     			return true;
     		default:
     			return super.onOptionsItemSelected(item);
