@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -87,20 +87,12 @@ public class WeatherNow extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch(item.getItemId()) {
     		case R.id.action_settings:
-    			Context context1 = getApplicationContext();
-    			CharSequence text1 = "Settings pressed...";
-    			int duration1 = Toast.LENGTH_SHORT;
-
-    			Toast toast1 = Toast.makeText(context1, text1, duration1);
-    			toast1.show();
+    			Intent settingsActivityIntent = new Intent(this, SettingsActivity.class);
+    			startActivity(settingsActivityIntent, null);
     			return true;
     		case R.id.action_help:
-    			Context context2 = getApplicationContext();
-    			CharSequence text2 = "Help pressed...";
-    			int duration2 = Toast.LENGTH_SHORT;
-
-    			Toast toast2 = Toast.makeText(context2, text2, duration2);
-    			toast2.show();
+    			Intent helpActivityIntent = new Intent(this, HelpActivity.class);
+    			startActivity(helpActivityIntent, null);
     			return true;
     		case R.id.action_about:
     			new AlertDialog.Builder(this)

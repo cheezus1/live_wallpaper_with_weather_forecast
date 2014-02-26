@@ -10,5 +10,6 @@
     <string name="title_section3">Section 3</string>
     <string name="refresh_button">Refresh</string>
     <string name="button_close">Close</string>
+    <string name="title_activity_help">HelpActivity</string>
 
 </resources>
