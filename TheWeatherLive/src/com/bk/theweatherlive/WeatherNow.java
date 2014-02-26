@@ -106,6 +106,7 @@ public class WeatherNow extends FragmentActivity {
     			new AlertDialog.Builder(this)
     			.setTitle(WeatherNow.this.getResources().getString(R.string.app_name))
     		    .setMessage("This application is developed by Bozhidar Nikolov and Kiril Kostadinov")
+    		    .setIcon(R.drawable.ic_launcher)
     		     .show();
     			return true;
     		default:
