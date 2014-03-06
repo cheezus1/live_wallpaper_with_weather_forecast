@@ -1,0 +1,14 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+	<ListPreference
+ 	    android:defaultValue="Metric" 
+        android:entryValues="@array/pref_units_values" 
+        android:entries="@array/pref_units_entries"
+        android:key="units"
+        android:title="@string/pref_units_title" />
+	<ListPreference
+        android:defaultValue="14" 
+        android:entryValues="@array/pref_forecast_days_values" 
+        android:entries="@array/pref_forecast_days_entries"
+        android:key="forecast_days"
+        android:title="@string/pref_forecast_days_title" />    
+</PreferenceScreen>

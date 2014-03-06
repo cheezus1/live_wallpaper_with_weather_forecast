@@ -1,15 +1,13 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <!-- These settings headers are only used on tablets. -->
+    
+    <header
+        android:fragment="com.bk.theweatherlive.SettingsActivity$UpdatePreferenceFragment"
+        android:title="@string/pref_cat_update_title" />
 
     <header
-        android:fragment="com.bk.theweatherlive.SettingsActivity$GeneralPreferenceFragment"
-        android:title="@string/pref_header_general" />
-    <header
-        android:fragment="com.bk.theweatherlive.SettingsActivity$NotificationPreferenceFragment"
-        android:title="@string/pref_header_notifications" />
-    <header
-        android:fragment="com.bk.theweatherlive.SettingsActivity$DataSyncPreferenceFragment"
-        android:title="@string/pref_header_data_sync" />
-
+        android:fragment="com.bk.theweatherlive.SettingsActivity$WeatherDataPreferenceFragment"
+        android:title="@string/pref_cat_data_title" />
+    
 </preference-headers>

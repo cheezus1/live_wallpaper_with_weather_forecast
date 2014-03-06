@@ -1,0 +1,21 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <CheckBoxPreference 
+        android:defaultValue="true"
+       	android:key="enable_update"
+       	android:summary="@string/pref_description_enable_auto_update"
+       	android:title="@string/pref_title_enable_auto_update" />
+    <ListPreference
+       	android:defaultValue="1" 
+       	android:entryValues="@array/pref_update_frequency_values" 
+       	android:entries="@array/pref_update_frequency_entries"
+       	android:key="update_frequency"
+       	android:title="@string/pref_update_frequency_title"  
+       	android:dependency="enable_update" />
+   	<CheckBoxPreference
+      	android:defaultValue="true"
+       	android:key="enable_update_on_launch" 
+       	android:title="@string/pref_enable_update_on_launch_title" />
+   	<Preference android:title="@string/pref_title_system_sync_settings" >
+   	   	<intent android:action="android.settings.SYNC_SETTINGS" />
+    </Preference>
+</PreferenceScreen>

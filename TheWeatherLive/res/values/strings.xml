@@ -11,5 +11,6 @@
     <string name="refresh_button">Refresh</string>
     <string name="button_close">Close</string>
     <string name="title_activity_help">Help</string>
+    <string name="title_activity_settings">Settings</string>
 
 </resources>

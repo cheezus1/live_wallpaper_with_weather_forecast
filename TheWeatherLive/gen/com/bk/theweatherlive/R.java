@@ -9,10 +9,12 @@ package com.bk.theweatherlive;
 
 public final class R {
     public static final class array {
-        public static final int pref_example_list_titles=0x7f070000;
-        public static final int pref_example_list_values=0x7f070001;
-        public static final int pref_sync_frequency_titles=0x7f070002;
-        public static final int pref_sync_frequency_values=0x7f070003;
+        public static final int pref_forecast_days_entries=0x7f070004;
+        public static final int pref_forecast_days_values=0x7f070005;
+        public static final int pref_units_entries=0x7f070002;
+        public static final int pref_units_values=0x7f070003;
+        public static final int pref_update_frequency_entries=0x7f070000;
+        public static final int pref_update_frequency_values=0x7f070001;
     }
     public static final class attr {
     }
@@ -58,27 +60,15 @@ public final class R {
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
         public static final int button_close=0x7f060008;
-        public static final int pref_default_display_name=0x7f06000f;
-        public static final int pref_description_social_recommendations=0x7f06000d;
-        /**  Example settings for Data & Sync 
-         */
-        public static final int pref_header_data_sync=0x7f060011;
-        /**  Strings related to Settings 
- Example General settings 
-         */
-        public static final int pref_header_general=0x7f06000b;
-        /**  Example settings for Notifications 
-         */
-        public static final int pref_header_notifications=0x7f060014;
-        public static final int pref_ringtone_silent=0x7f060017;
-        public static final int pref_title_add_friends_to_messages=0x7f060010;
-        public static final int pref_title_display_name=0x7f06000e;
-        public static final int pref_title_new_message_notifications=0x7f060015;
-        public static final int pref_title_ringtone=0x7f060016;
-        public static final int pref_title_social_recommendations=0x7f06000c;
-        public static final int pref_title_sync_frequency=0x7f060012;
-        public static final int pref_title_system_sync_settings=0x7f060013;
-        public static final int pref_title_vibrate=0x7f060018;
+        public static final int pref_cat_data_title=0x7f060011;
+        public static final int pref_cat_update_title=0x7f06000c;
+        public static final int pref_description_enable_auto_update=0x7f06000d;
+        public static final int pref_enable_update_on_launch_title=0x7f060010;
+        public static final int pref_forecast_days_title=0x7f060013;
+        public static final int pref_title_enable_auto_update=0x7f06000e;
+        public static final int pref_title_system_sync_settings=0x7f06000b;
+        public static final int pref_units_title=0x7f060012;
+        public static final int pref_update_frequency_title=0x7f06000f;
         public static final int refresh_button=0x7f060007;
         public static final int title_activity_help=0x7f060009;
         public static final int title_activity_settings=0x7f06000a;
@@ -115,9 +105,9 @@ public final class R {
         public static final int AppTheme=0x7f080001;
     }
     public static final class xml {
-        public static final int pref_data_sync=0x7f040000;
-        public static final int pref_general=0x7f040001;
-        public static final int pref_headers=0x7f040002;
-        public static final int pref_notification=0x7f040003;
+        public static final int pref_dummy=0x7f040000;
+        public static final int pref_headers=0x7f040001;
+        public static final int pref_update=0x7f040002;
+        public static final int pref_weather_data=0x7f040003;
     }
 }
