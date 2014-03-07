@@ -5,7 +5,9 @@ import java.util.Locale;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -37,6 +39,7 @@ public class WeatherNow extends FragmentActivity {
      */
     ViewPager mViewPager;
     ImageButton refreshButton;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,8 @@ public class WeatherNow extends FragmentActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(1);
+        
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
         
         initRefreshButton();
 
@@ -145,7 +150,7 @@ public class WeatherNow extends FragmentActivity {
                 case 1:
                     return getString(R.string.title_section2).toUpperCase(l);
                 case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
+                    return (getString(R.string.title_section3_part1) + " " + preferences.getString("forecast_days", "NULL") + " " + getString(R.string.title_section3_part2)).toUpperCase(l);
             }
             return null;
         }

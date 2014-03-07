@@ -36,14 +36,15 @@ public final class R {
         public static final int refresh_pressed=0x7f020004;
     }
     public static final class id {
-        public static final int action_about=0x7f0a0007;
-        public static final int action_help=0x7f0a0006;
-        public static final int action_settings=0x7f0a0005;
-        public static final int pager=0x7f0a0000;
-        public static final int pager_title_strip=0x7f0a0001;
-        public static final int refreshButton=0x7f0a0002;
-        public static final int section_label=0x7f0a0004;
-        public static final int updateProgress=0x7f0a0003;
+        public static final int action_about=0x7f0a0008;
+        public static final int action_help=0x7f0a0007;
+        public static final int action_settings=0x7f0a0006;
+        public static final int pager=0x7f0a0001;
+        public static final int pager_title_strip=0x7f0a0002;
+        public static final int refreshButton=0x7f0a0003;
+        public static final int section_label=0x7f0a0005;
+        public static final int textView1=0x7f0a0000;
+        public static final int updateProgress=0x7f0a0004;
     }
     public static final class layout {
         public static final int activity_help=0x7f030000;
@@ -59,22 +60,23 @@ public final class R {
         public static final int action_help=0x7f060002;
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
-        public static final int button_close=0x7f060008;
-        public static final int pref_cat_data_title=0x7f060011;
-        public static final int pref_cat_update_title=0x7f06000c;
-        public static final int pref_description_enable_auto_update=0x7f06000d;
-        public static final int pref_enable_update_on_launch_title=0x7f060010;
-        public static final int pref_forecast_days_title=0x7f060013;
-        public static final int pref_title_enable_auto_update=0x7f06000e;
-        public static final int pref_title_system_sync_settings=0x7f06000b;
-        public static final int pref_units_title=0x7f060012;
-        public static final int pref_update_frequency_title=0x7f06000f;
-        public static final int refresh_button=0x7f060007;
-        public static final int title_activity_help=0x7f060009;
-        public static final int title_activity_settings=0x7f06000a;
+        public static final int button_close=0x7f060009;
+        public static final int pref_cat_data_title=0x7f060012;
+        public static final int pref_cat_update_title=0x7f06000d;
+        public static final int pref_description_enable_auto_update=0x7f06000e;
+        public static final int pref_enable_update_on_launch_title=0x7f060011;
+        public static final int pref_forecast_days_title=0x7f060014;
+        public static final int pref_title_enable_auto_update=0x7f06000f;
+        public static final int pref_title_system_sync_settings=0x7f06000c;
+        public static final int pref_units_title=0x7f060013;
+        public static final int pref_update_frequency_title=0x7f060010;
+        public static final int refresh_button=0x7f060008;
+        public static final int title_activity_help=0x7f06000a;
+        public static final int title_activity_settings=0x7f06000b;
         public static final int title_section1=0x7f060004;
         public static final int title_section2=0x7f060005;
-        public static final int title_section3=0x7f060006;
+        public static final int title_section3_part1=0x7f060006;
+        public static final int title_section3_part2=0x7f060007;
     }
     public static final class style {
         /** 
