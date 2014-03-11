@@ -1,8 +1,16 @@
 package com.bk.theweatherlive;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Locale;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,6 +48,11 @@ public class WeatherNow extends FragmentActivity {
     ViewPager mViewPager;
     ImageButton refreshButton;
     SharedPreferences preferences;
+    Account mAccount;
+    
+    public static final String AUTHORITY = "com.bk.theweatherlive.provider";
+    public static final String ACCOUNT_TYPE = "example.com";
+    public static final String ACCOUNT = "dummyaccount";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +72,19 @@ public class WeatherNow extends FragmentActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         
         initRefreshButton();
-
+        
+        mAccount = CreateSyncAccount(this);
+    }
+    
+    public static Account CreateSyncAccount(Context context) {
+    	Account newAccount = new Account(ACCOUNT, ACCOUNT_TYPE);
+    	AccountManager accountManager = (AccountManager) context.getSystemService(ACCOUNT_SERVICE);
+    	if(accountManager.addAccountExplicitly(newAccount, null, null)) {
+    		return newAccount;
+    	} else {
+    		//error log
+    	}
+    	return null;
     }
 
     public void initRefreshButton() {
@@ -72,11 +97,37 @@ public class WeatherNow extends FragmentActivity {
 			public void onClick(View v) {
 				// THIS IS A PLACEHOLDER CODE! IT WILL BE REPLACED IN LATER VERSIONS!
 				
+				Bundle settingsBundle = new Bundle();
+				settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+				settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+				ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
+				String toastText = "default text";
+				try {
+		            InputStream inputStream = openFileInput("testfile.txt");
+		             
+		            if ( inputStream != null ) {
+		                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+		                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+		                StringBuilder stringBuilder = new StringBuilder();
+		                 
+		                while ( (toastText = bufferedReader.readLine()) != null ) {
+		                    stringBuilder.append(toastText);
+		                }
+		                 
+		                inputStream.close();
+		                toastText = stringBuilder.toString();
+		            }
+		        }
+		        catch (FileNotFoundException e) {
+		            
+		        } catch (IOException e) {
+		            
+		        }
 				updateProgress.setVisibility(View.VISIBLE);
-				Toast.makeText(WeatherNow.this, "Update Button is clicked", Toast.LENGTH_SHORT).show();
+				Toast.makeText(WeatherNow.this, toastText, Toast.LENGTH_SHORT).show();
 				// I need to wait a couple of seconds here but for some reason sleep doesn't work 
 				//(neither does wait)
-				//updateProgress.setVisibility(View.INVISIBLE);
+				updateProgress.setVisibility(View.INVISIBLE);
 			}
     		
     	});
