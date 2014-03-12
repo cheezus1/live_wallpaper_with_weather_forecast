@@ -127,7 +127,7 @@ public class WeatherNow extends FragmentActivity {
 				Toast.makeText(WeatherNow.this, toastText, Toast.LENGTH_SHORT).show();
 				// I need to wait a couple of seconds here but for some reason sleep doesn't work 
 				//(neither does wait)
-				updateProgress.setVisibility(View.INVISIBLE);
+				//updateProgress.setVisibility(View.INVISIBLE);
 			}
     		
     	});
@@ -201,7 +201,7 @@ public class WeatherNow extends FragmentActivity {
                 case 1:
                     return getString(R.string.title_section2).toUpperCase(l);
                 case 2:
-                    return (getString(R.string.title_section3_part1) + " " + preferences.getString("forecast_days", "NULL") + " " + getString(R.string.title_section3_part2)).toUpperCase(l);
+                    return (getString(R.string.title_section3_part1) + " " + preferences.getString("forecast_days", "14") + " " + getString(R.string.title_section3_part2)).toUpperCase(l);
             }
             return null;
         }
