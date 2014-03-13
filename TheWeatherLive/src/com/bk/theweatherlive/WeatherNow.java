@@ -52,7 +52,7 @@ public class WeatherNow extends FragmentActivity {
     
     public static final String AUTHORITY = "com.bk.theweatherlive.provider";
     public static final String ACCOUNT_TYPE = "example.com";
-    public static final String ACCOUNT = "dummyaccount";
+    public static final String ACCOUNT = "Weather Update";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
