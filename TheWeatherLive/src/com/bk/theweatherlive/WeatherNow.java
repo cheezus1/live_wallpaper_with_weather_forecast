@@ -22,6 +22,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class WeatherNow extends FragmentActivity {
@@ -51,7 +53,7 @@ public class WeatherNow extends FragmentActivity {
     SharedPreferences preferences;
     Account mAccount;
     final Handler mHandler = new Handler();
-    String toastText = "default text";
+    String weatherData = "default text";
     
     public static final String AUTHORITY = "com.bk.theweatherlive.provider";
     public static final String ACCOUNT_TYPE = "example.com";
@@ -75,7 +77,7 @@ public class WeatherNow extends FragmentActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         
         initRefreshButton();
-        
+    	
         mAccount = CreateSyncAccount(this);
     }
     
@@ -112,6 +114,7 @@ public class WeatherNow extends FragmentActivity {
 						Bundle settingsBundle = new Bundle();
 						settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
 						settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+						settingsBundle.putString("units", preferences.getString("units", "metric"));
 						ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
 						while(ContentResolver.isSyncPending(mAccount, AUTHORITY) || ContentResolver.isSyncActive(mAccount, AUTHORITY)){}
 						//String toastText = "default text";
@@ -123,12 +126,12 @@ public class WeatherNow extends FragmentActivity {
 				                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 				                StringBuilder stringBuilder = new StringBuilder();
 				                 
-				                while ( (toastText = bufferedReader.readLine()) != null ) {
-				                    stringBuilder.append(toastText);
+				                while ( (weatherData = bufferedReader.readLine()) != null ) {
+				                    stringBuilder.append(weatherData);
 				                }
 				                 
 				                inputStream.close();
-				                toastText = stringBuilder.toString();
+				                weatherData = stringBuilder.toString();
 				            }
 				        }
 				        catch (FileNotFoundException e) {
@@ -142,9 +145,12 @@ public class WeatherNow extends FragmentActivity {
 							@Override
 							public void run() {
 								updateProgress.setVisibility(View.INVISIBLE);
+								TextView mainText = (TextView) findViewById(R.id.test);
+						    	Log.d("TWL", weatherData);
+						    	mainText.setText(weatherData);
 							}
 						});
-						mHandler.post(mUpdateResults);
+						//mHandler.post(mUpdateResults);
 					}
 				});
 				thread.start();
@@ -160,7 +166,9 @@ public class WeatherNow extends FragmentActivity {
     };
     
     private void updateResultsInUi() {
-    	Toast.makeText(WeatherNow.this, toastText, Toast.LENGTH_SHORT).show();
+    	TextView mainText = (TextView) findViewById(R.id.test);
+    	Log.d("TWL", weatherData);
+    	mainText.setText(weatherData);
     }
     
     @Override

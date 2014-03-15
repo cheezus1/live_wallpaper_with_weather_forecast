@@ -43,17 +43,19 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			String authority,
 			ContentProviderClient provider,
 			SyncResult syncResult) {
+		final String units = extras.getString("units", "metric");
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
 				try {
 					try {
-						URL weatherApi = new URL("http://timeapi.org/utc/now");
+						URL weatherApi = new URL("http://api.openweathermap.org/data/2.5/weather?q=Sofia&mode=xml&units=" + units);
 						try {
-							BufferedReader input = new BufferedReader(new InputStreamReader(weatherApi.openStream()));
-							String inputLine = input.readLine();
+							WeatherNowParser parser = new WeatherNowParser();
+							String data = parser.parse(weatherApi.openStream());
+							Log.d("TWL", data);
 							try {
 					            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContext().openFileOutput(TEST_FILE, Context.MODE_PRIVATE));
-					            outputStreamWriter.write(inputLine);
+					            outputStreamWriter.write(data);
 					            outputStreamWriter.close();
 					        }
 					        catch (IOException e) {

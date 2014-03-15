@@ -28,8 +28,8 @@
         <item>Imperial</item>
     </string-array>
     <string-array name="pref_units_values">
-        <item>Metric</item>
-        <item>Imperial</item>
+        <item>metric</item>
+        <item>imperial</item>
     </string-array>
     <string name="pref_forecast_days_title">Show weather forecast for</string>
     <string-array name="pref_forecast_days_entries">
