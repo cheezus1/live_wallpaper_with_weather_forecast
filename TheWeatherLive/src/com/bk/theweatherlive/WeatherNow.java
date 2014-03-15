@@ -116,18 +116,21 @@ public class WeatherNow extends FragmentActivity {
 						settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
 						settingsBundle.putString("units", preferences.getString("units", "metric"));
 						ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
-						while(ContentResolver.isSyncPending(mAccount, AUTHORITY) || ContentResolver.isSyncActive(mAccount, AUTHORITY)){}
+						//while(ContentResolver.isSyncPending(mAccount, AUTHORITY) || ContentResolver.isSyncActive(mAccount, AUTHORITY)){}
 						//String toastText = "default text";
 						try {
+							Log.d("twl", "opened file");
 				            InputStream inputStream = openFileInput("testfile.txt");
+				            Log.d("twl", "opened file");
 				             
 				            if ( inputStream != null ) {
 				                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 				                StringBuilder stringBuilder = new StringBuilder();
+				                Log.d("twl", "opened file");
 				                 
 				                while ( (weatherData = bufferedReader.readLine()) != null ) {
-				                    stringBuilder.append(weatherData);
+				                    stringBuilder.append(weatherData + "\n");
 				                }
 				                 
 				                inputStream.close();
@@ -145,7 +148,7 @@ public class WeatherNow extends FragmentActivity {
 							@Override
 							public void run() {
 								updateProgress.setVisibility(View.INVISIBLE);
-								TextView mainText = (TextView) findViewById(R.id.test);
+								TextView mainText = (TextView) findViewById(R.id.weather_now_text);
 						    	Log.d("TWL", weatherData);
 						    	mainText.setText(weatherData);
 							}
@@ -166,7 +169,7 @@ public class WeatherNow extends FragmentActivity {
     };
     
     private void updateResultsInUi() {
-    	TextView mainText = (TextView) findViewById(R.id.test);
+    	TextView mainText = (TextView) findViewById(R.id.weather_now_text);
     	Log.d("TWL", weatherData);
     	mainText.setText(weatherData);
     }

@@ -55,9 +55,11 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 							Log.d("TWL", data);
 							try {
 					            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContext().openFileOutput(TEST_FILE, Context.MODE_PRIVATE));
+					            Log.d("twl", "opened file");
 					            outputStreamWriter.write(data);
 					            outputStreamWriter.close();
-					        }
+					            Log.d("twl", "opened file");
+							}
 					        catch (IOException e) {
 					            Log.e(TAG, "File write failed: " + e.toString());
 					        } 

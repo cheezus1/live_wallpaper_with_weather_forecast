@@ -50,13 +50,5 @@
 	    android:layout_marginRight="-12dp"
 	    android:visibility="invisible"/>
 
-	<TextView
-	    android:id="@+id/test"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentLeft="true"
-	    android:layout_alignParentTop="true"
-	    android:layout_marginLeft="21dp"
-	    android:layout_marginTop="44dp" />
 	
 </RelativeLayout>
