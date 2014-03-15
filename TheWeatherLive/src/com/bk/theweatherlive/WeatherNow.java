@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -49,6 +50,8 @@ public class WeatherNow extends FragmentActivity {
     ImageButton refreshButton;
     SharedPreferences preferences;
     Account mAccount;
+    final Handler mHandler = new Handler();
+    String toastText = "default text";
     
     public static final String AUTHORITY = "com.bk.theweatherlive.provider";
     public static final String ACCOUNT_TYPE = "example.com";
@@ -96,41 +99,68 @@ public class WeatherNow extends FragmentActivity {
 			@Override
 			public void onClick(View v) {
 				// THIS IS A PLACEHOLDER CODE! IT WILL BE REPLACED IN LATER VERSIONS!
-				
-				Bundle settingsBundle = new Bundle();
-				settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-				settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-				ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
-				String toastText = "default text";
-				try {
-		            InputStream inputStream = openFileInput("testfile.txt");
-		             
-		            if ( inputStream != null ) {
-		                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-		                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-		                StringBuilder stringBuilder = new StringBuilder();
-		                 
-		                while ( (toastText = bufferedReader.readLine()) != null ) {
-		                    stringBuilder.append(toastText);
-		                }
-		                 
-		                inputStream.close();
-		                toastText = stringBuilder.toString();
-		            }
-		        }
-		        catch (FileNotFoundException e) {
-		            
-		        } catch (IOException e) {
-		            
-		        }
-				updateProgress.setVisibility(View.VISIBLE);
-				Toast.makeText(WeatherNow.this, toastText, Toast.LENGTH_SHORT).show();
-				// I need to wait a couple of seconds here but for some reason sleep doesn't work 
-				//(neither does wait)
-				//updateProgress.setVisibility(View.INVISIBLE);
+				Thread thread = new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								updateProgress.setVisibility(View.VISIBLE);
+							}
+						});
+						Bundle settingsBundle = new Bundle();
+						settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+						settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+						ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
+						while(ContentResolver.isSyncPending(mAccount, AUTHORITY) || ContentResolver.isSyncActive(mAccount, AUTHORITY)){}
+						//String toastText = "default text";
+						try {
+				            InputStream inputStream = openFileInput("testfile.txt");
+				             
+				            if ( inputStream != null ) {
+				                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+				                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+				                StringBuilder stringBuilder = new StringBuilder();
+				                 
+				                while ( (toastText = bufferedReader.readLine()) != null ) {
+				                    stringBuilder.append(toastText);
+				                }
+				                 
+				                inputStream.close();
+				                toastText = stringBuilder.toString();
+				            }
+				        }
+				        catch (FileNotFoundException e) {
+				            
+				        } catch (IOException e) {
+				            
+				        }
+						
+						
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								updateProgress.setVisibility(View.INVISIBLE);
+							}
+						});
+						mHandler.post(mUpdateResults);
+					}
+				});
+				thread.start();
 			}
-    		
     	});
+    }
+    
+    final Runnable mUpdateResults = new Runnable() {
+		@Override
+		public void run() {
+			updateResultsInUi();
+		}
+    };
+    
+    private void updateResultsInUi() {
+    	Toast.makeText(WeatherNow.this, toastText, Toast.LENGTH_SHORT).show();
     }
     
     @Override
