@@ -18,7 +18,7 @@ import android.util.Log;
 
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
-	private static final String TEST_FILE = "testfile.txt";
+	private static final String NOW_FILE = "now.txt";
 	private static final String HOURLY_FILE = "hourly.txt";
 	private static final String FORECAST_FILE = "forecast.txt";
 	
@@ -57,7 +57,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 							String data = parser.parse(weatherApi.openStream());
 							Log.d("TWL", data);
 							try {
-					            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContext().openFileOutput(TEST_FILE, Context.MODE_PRIVATE));
+					            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContext().openFileOutput(NOW_FILE, Context.MODE_PRIVATE));
 					            Log.d("twl", "opened file");
 					            outputStreamWriter.write(data);
 					            outputStreamWriter.close();

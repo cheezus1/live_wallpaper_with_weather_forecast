@@ -49,6 +49,4 @@
 	    android:layout_toLeftOf="@+id/refreshButton"
 	    android:layout_marginRight="-12dp"
 	    android:visibility="invisible"/>
-
-	
 </RelativeLayout>

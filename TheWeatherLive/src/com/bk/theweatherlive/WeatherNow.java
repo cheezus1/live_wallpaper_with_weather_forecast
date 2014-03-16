@@ -54,7 +54,9 @@ public class WeatherNow extends FragmentActivity {
     SharedPreferences preferences;
     Account mAccount;
     final Handler mHandler = new Handler();
-    String weatherData = "default text";
+    String now = "default text";
+    String hourly = "default text";
+    String forecast = "default text";
     
     public static final String AUTHORITY = "com.bk.theweatherlive.provider";
     public static final String ACCOUNT_TYPE = "example.com";
@@ -133,39 +135,110 @@ public class WeatherNow extends FragmentActivity {
     	Thread thread1 = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				try {
-		            InputStream inputStream = openFileInput("forecast.txt");
-		             
-		            if ( inputStream != null ) {
-		                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-		                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-		                StringBuilder stringBuilder = new StringBuilder();
-		                 
-		                while ( (weatherData = bufferedReader.readLine()) != null ) {
-		                    stringBuilder.append(weatherData + "\n");
-		                }
-		                 
-		                inputStream.close();
-		                weatherData = stringBuilder.toString();
-		            }
-		        } catch (FileNotFoundException e) {
-		            
-		        } catch (IOException e) {
-		            
-		        }
+				for(int i = 0; i < 3; i++) {
+					switch(i) {
+					case 0:
+						try {
+				            InputStream inputStream = openFileInput("hourly.txt");
+				             
+				            if ( inputStream != null ) {
+				                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+				                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+				                StringBuilder stringBuilder = new StringBuilder();
+				                 
+				                while ( (hourly = bufferedReader.readLine()) != null ) {
+				                    stringBuilder.append(hourly + "\n");
+				                }
+				                 
+				                inputStream.close();
+				                hourly = stringBuilder.toString();
+				            }
+				        } catch (FileNotFoundException e) {
+				            
+				        } catch (IOException e) {
+				            
+				        }
+					case 1:
+						try {
+				            InputStream inputStream = openFileInput("now.txt");
+				             
+				            if ( inputStream != null ) {
+				                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+				                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+				                StringBuilder stringBuilder = new StringBuilder();
+				                 
+				                while ( (now = bufferedReader.readLine()) != null ) {
+				                    stringBuilder.append(now + "\n");
+				                }
+				                 
+				                inputStream.close();
+				                now = stringBuilder.toString();
+				            }
+				        } catch (FileNotFoundException e) {
+				            
+				        } catch (IOException e) {
+				            
+				        }
+					case 2:
+						try {
+				            InputStream inputStream = openFileInput("forecast.txt");
+				             
+				            if ( inputStream != null ) {
+				                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+				                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+				                StringBuilder stringBuilder = new StringBuilder();
+				                 
+				                while ( (forecast = bufferedReader.readLine()) != null ) {
+				                    stringBuilder.append(forecast + "\n");
+				                }
+				                 
+				                inputStream.close();
+				                forecast = stringBuilder.toString();
+				            }
+				        } catch (FileNotFoundException e) {
+				            
+				        } catch (IOException e) {
+				            
+				        }
+					}
+				}
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						TextView mainText = (TextView) findViewById(R.id.weather_now_text);
-						mainText.setMovementMethod(new ScrollingMovementMethod());
-						mainText.setText(weatherData);
+						int currentPage = mViewPager.getCurrentItem();
+						TextView mainText;
+						for(int i = 0; i < 3; i++) {
+							switch(i) {
+							case 0:
+								mViewPager.setCurrentItem(i); 
+								mainText = (TextView) findViewById(R.id.weather_hourly_text);
+								mainText.setMovementMethod(new ScrollingMovementMethod());
+								mainText.setText(hourly);
+								break;
+							case 1:
+								mViewPager.setCurrentItem(i);
+								mainText = (TextView) findViewById(R.id.weather_now_text);
+								mainText.setMovementMethod(new ScrollingMovementMethod());
+								mainText.setText(now);
+								break;
+							case 2:
+								mViewPager.setCurrentItem(i);
+								mainText = (TextView) findViewById(R.id.weather_forecast_text);
+								mainText.setMovementMethod(new ScrollingMovementMethod());
+								mainText.setText(forecast);
+								break;
+							default:
+								mViewPager.setCurrentItem(currentPage);
+							}
+						}
+						mViewPager.setCurrentItem(currentPage);
 					}
 				});
 			}
     	});
     	thread1.start();
     }
-    
+    /*
     final Runnable mUpdateResults = new Runnable() {
 		@Override
 		public void run() {
@@ -175,9 +248,9 @@ public class WeatherNow extends FragmentActivity {
     
     private void updateResultsInUi() {
     	TextView mainText = (TextView) findViewById(R.id.weather_now_text);
-    	Log.d("TWL", weatherData);
-    	mainText.setText(weatherData);
-    }
+    	Log.d("TWL", now);
+    	mainText.setText(now);
+    }*/
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -225,11 +298,27 @@ public class WeatherNow extends FragmentActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a DummySectionFragment (defined as a static inner class
             // below) with the page number as its lone argument.
-            Fragment fragment = new DummySectionFragment();
-            Bundle args = new Bundle();
-            args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-            fragment.setArguments(args);
-            return fragment;
+        	switch(position) {
+        	case 0:
+	            Fragment fragment1 = new HourlySectionFragment();
+	            Bundle args1 = new Bundle();
+	            args1.putInt(HourlySectionFragment.ARG_SECTION_NUMBER, position + 1);
+	            fragment1.setArguments(args1);
+	            return fragment1;
+        	case 1:
+        		Fragment fragment2 = new NowSectionFragment();
+        		Bundle args2 = new Bundle();
+        		args2.putInt(NowSectionFragment.ARG_SECTION_NUMBER,  position + 1);
+        		fragment2.setArguments(args2);
+        		return fragment2;
+        	case 2:
+        		Fragment fragment3 = new ForecastSectionFragment();
+        		Bundle args3 = new Bundle();
+        		args3.putInt(ForecastSectionFragment.ARG_SECTION_NUMBER,  position + 1);
+        		fragment3.setArguments(args3);
+        		return fragment3;
+        	}
+        	return null;
         }
 
         @Override
@@ -257,25 +346,49 @@ public class WeatherNow extends FragmentActivity {
      * A dummy fragment representing a section of the app, but that simply
      * displays dummy text.
      */
-    public static class DummySectionFragment extends Fragment {
+    public static class HourlySectionFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         public static final String ARG_SECTION_NUMBER = "section_number";
 
-        public DummySectionFragment() {
+        public HourlySectionFragment() {
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_weather_now_dummy, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_weather_now_hourly, container, false);
             //Remove the numbers of the tabs
            /* TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
             dummyTextView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));*/
             return rootView;
         }
+    }
+    
+    public static class NowSectionFragment extends Fragment {
+    	
+    	public static final String ARG_SECTION_NUMBER = "section_number";
+    	
+    	public NowSectionFragment() {}
+    	
+    	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    		View rootView = inflater.inflate(R.layout.fragment_weather_now_now, container, false);
+    		return rootView;
+    	}
+    }
+    
+    public static class ForecastSectionFragment extends Fragment {
+    	
+    	public static final String ARG_SECTION_NUMBER = "section_number";
+    	
+    	public ForecastSectionFragment() {}
+    	
+    	public View onCreateVIew(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    		View rootView = inflater.inflate(R.layout.fragment_weather_now_forecast, container, false);
+    		return rootView;
+    	}    	
     }
 
 }
