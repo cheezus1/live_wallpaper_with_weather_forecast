@@ -205,52 +205,37 @@ public class WeatherNow extends FragmentActivity {
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						int currentPage = mViewPager.getCurrentItem();
-						TextView mainText;
-						for(int i = 0; i < 3; i++) {
-							switch(i) {
-							case 0:
-								mViewPager.setCurrentItem(i); 
-								mainText = (TextView) findViewById(R.id.weather_hourly_text);
-								mainText.setMovementMethod(new ScrollingMovementMethod());
-								mainText.setText(hourly);
-								break;
-							case 1:
-								mViewPager.setCurrentItem(i);
-								mainText = (TextView) findViewById(R.id.weather_now_text);
-								mainText.setMovementMethod(new ScrollingMovementMethod());
-								mainText.setText(now);
-								break;
-							case 2:
-								mViewPager.setCurrentItem(i);
-								mainText = (TextView) findViewById(R.id.weather_forecast_text);
-								mainText.setMovementMethod(new ScrollingMovementMethod());
-								mainText.setText(forecast);
-								break;
-							default:
-								mViewPager.setCurrentItem(currentPage);
-							}
-						}
-						mViewPager.setCurrentItem(currentPage);
+						mViewPager.setCurrentItem(1);
+						updateHourlyData();
+						updateCurrentData();
+						updateForecastData();
 					}
 				});
 			}
     	});
     	thread1.start();
     }
-    /*
-    final Runnable mUpdateResults = new Runnable() {
-		@Override
-		public void run() {
-			updateResultsInUi();
-		}
-    };
     
-    private void updateResultsInUi() {
-    	TextView mainText = (TextView) findViewById(R.id.weather_now_text);
-    	Log.d("TWL", now);
-    	mainText.setText(now);
-    }*/
+    private void updateHourlyData() {
+    	TextView mainText;
+    	mainText = (TextView) findViewById(R.id.weather_hourly_text);
+		mainText.setMovementMethod(new ScrollingMovementMethod());
+		mainText.setText(hourly);
+    }
+    
+    private void updateCurrentData() {
+    	TextView mainText;
+    	mainText = (TextView) findViewById(R.id.weather_now_text);
+		mainText.setMovementMethod(new ScrollingMovementMethod());
+		mainText.setText(now);
+    }
+    
+    private void updateForecastData() {
+    	TextView mainText;
+    	mainText = (TextView) findViewById(R.id.weather_forecast_text);
+		mainText.setMovementMethod(new ScrollingMovementMethod());
+		mainText.setText(forecast);
+    }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -352,10 +337,11 @@ public class WeatherNow extends FragmentActivity {
          * fragment.
          */
         public static final String ARG_SECTION_NUMBER = "section_number";
+        
 
         public HourlySectionFragment() {
         }
-
+        
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
