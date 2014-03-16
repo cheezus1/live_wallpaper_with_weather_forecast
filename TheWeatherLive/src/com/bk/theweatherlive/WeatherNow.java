@@ -373,6 +373,7 @@ public class WeatherNow extends FragmentActivity {
     	
     	public NowSectionFragment() {}
     	
+    	@Override
     	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     		View rootView = inflater.inflate(R.layout.fragment_weather_now_now, container, false);
     		return rootView;
@@ -385,7 +386,8 @@ public class WeatherNow extends FragmentActivity {
     	
     	public ForecastSectionFragment() {}
     	
-    	public View onCreateVIew(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    	@Override
+    	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     		View rootView = inflater.inflate(R.layout.fragment_weather_now_forecast, container, false);
     		return rootView;
     	}    	
