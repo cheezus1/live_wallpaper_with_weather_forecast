@@ -118,47 +118,49 @@ public class WeatherNow extends FragmentActivity {
 						ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
 						//while(ContentResolver.isSyncPending(mAccount, AUTHORITY) || ContentResolver.isSyncActive(mAccount, AUTHORITY)){}
 						//String toastText = "default text";
-						try {
-							Log.d("twl", "opened file");
-				            InputStream inputStream = openFileInput("testfile.txt");
-				            Log.d("twl", "opened file");
-				             
-				            if ( inputStream != null ) {
-				                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-				                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-				                StringBuilder stringBuilder = new StringBuilder();
-				                Log.d("twl", "opened file");
-				                 
-				                while ( (weatherData = bufferedReader.readLine()) != null ) {
-				                    stringBuilder.append(weatherData + "\n");
-				                }
-				                 
-				                inputStream.close();
-				                weatherData = stringBuilder.toString();
-				            }
-				        }
-				        catch (FileNotFoundException e) {
-				            
-				        } catch (IOException e) {
-				            
-				        }
-						
-						
-						runOnUiThread(new Runnable() {
-							@Override
-							public void run() {
-								updateProgress.setVisibility(View.INVISIBLE);
-								TextView mainText = (TextView) findViewById(R.id.weather_now_text);
-						    	Log.d("TWL", weatherData);
-						    	mainText.setText(weatherData);
-							}
-						});
-						//mHandler.post(mUpdateResults);
+						updateInUi();
 					}
 				});
 				thread.start();
 			}
     	});
+    }
+    
+    private void updateInUi() {
+    	
+    	Thread thread1 = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+		            InputStream inputStream = openFileInput("hourly.txt");
+		             
+		            if ( inputStream != null ) {
+		                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+		                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+		                StringBuilder stringBuilder = new StringBuilder();
+		                 
+		                while ( (weatherData = bufferedReader.readLine()) != null ) {
+		                    stringBuilder.append(weatherData + "\n");
+		                }
+		                 
+		                inputStream.close();
+		                weatherData = stringBuilder.toString();
+		            }
+		        } catch (FileNotFoundException e) {
+		            
+		        } catch (IOException e) {
+		            
+		        }
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						TextView mainText = (TextView) findViewById(R.id.weather_now_text);
+						mainText.setText(weatherData);
+					}
+				});
+			}
+    	});
+    	thread1.start();
     }
     
     final Runnable mUpdateResults = new Runnable() {

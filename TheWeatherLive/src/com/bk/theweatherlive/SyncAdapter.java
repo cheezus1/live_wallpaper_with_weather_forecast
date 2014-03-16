@@ -19,6 +19,7 @@ import android.util.Log;
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
 	private static final String TEST_FILE = "testfile.txt";
+	private static final String HOURLY_FILE = "hourly.txt";
 	
 	ContentResolver mContentResolver;
 	private static final String TAG = "onPerformSync: "; //Used only for debugging!
@@ -57,6 +58,32 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 					            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContext().openFileOutput(TEST_FILE, Context.MODE_PRIVATE));
 					            Log.d("twl", "opened file");
 					            outputStreamWriter.write(data);
+					            outputStreamWriter.close();
+					            Log.d("twl", "opened file");
+							}
+					        catch (IOException e) {
+					            Log.e(TAG, "File write failed: " + e.toString());
+					        } 
+						} catch(IOException e) {
+							e.printStackTrace();
+						}
+					} catch(MalformedURLException e) {
+						e.printStackTrace();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				try {
+					try {
+						URL hourlyWeatherApi = new URL("http://api.openweathermap.org/data/2.5/forecast?q=Sofia&mode=xml&units=" + units);
+						try {
+							HourlyParser parser = new HourlyParser();
+							String hourlyData = parser.parse(hourlyWeatherApi.openStream());
+							Log.d("TWL", hourlyData);
+							try {
+					            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContext().openFileOutput(HOURLY_FILE, Context.MODE_PRIVATE));
+					            Log.d("twl", "opened file");
+					            outputStreamWriter.write(hourlyData);
 					            outputStreamWriter.close();
 					            Log.d("twl", "opened file");
 							}
