@@ -20,6 +20,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
 	private static final String TEST_FILE = "testfile.txt";
 	private static final String HOURLY_FILE = "hourly.txt";
+	private static final String FORECAST_FILE = "forecast.txt";
 	
 	ContentResolver mContentResolver;
 	private static final String TAG = "onPerformSync: "; //Used only for debugging!
@@ -45,6 +46,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			ContentProviderClient provider,
 			SyncResult syncResult) {
 		final String units = extras.getString("units", "metric");
+		final String forecastDays = extras.getString("forecast_days", "14");
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
 				try {
@@ -99,7 +101,34 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				try {
+					try {
+						URL forecastWeatherApi = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=Sofia&mode=xml&units=" + units + "&cnt=" + forecastDays);
+						try {
+							ForecastParser parser = new ForecastParser();
+							String forecastData = parser.parse(forecastWeatherApi.openStream(), units);
+							Log.d("TWL", forecastData);
+							try {
+					            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContext().openFileOutput(FORECAST_FILE, Context.MODE_PRIVATE));
+					            Log.d("twl", "opened file");
+					            outputStreamWriter.write(forecastData);
+					            outputStreamWriter.close();
+					            Log.d("twl", "opened file");
+							}
+					        catch (IOException e) {
+					            Log.e(TAG, "File write failed: " + e.toString());
+					        } 
+						} catch(IOException e) {
+							e.printStackTrace();
+						}
+					} catch(MalformedURLException e) {
+						e.printStackTrace();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
+			
 		});
 		thread.start();
 	}

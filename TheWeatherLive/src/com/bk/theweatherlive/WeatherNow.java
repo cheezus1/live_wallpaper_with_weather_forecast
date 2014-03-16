@@ -22,6 +22,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -115,6 +116,7 @@ public class WeatherNow extends FragmentActivity {
 						settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
 						settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
 						settingsBundle.putString("units", preferences.getString("units", "metric"));
+						settingsBundle.putString("forecast_days", preferences.getString("forecast_days", "14"));
 						ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
 						//while(ContentResolver.isSyncPending(mAccount, AUTHORITY) || ContentResolver.isSyncActive(mAccount, AUTHORITY)){}
 						//String toastText = "default text";
@@ -132,7 +134,7 @@ public class WeatherNow extends FragmentActivity {
 			@Override
 			public void run() {
 				try {
-		            InputStream inputStream = openFileInput("hourly.txt");
+		            InputStream inputStream = openFileInput("forecast.txt");
 		             
 		            if ( inputStream != null ) {
 		                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -155,6 +157,7 @@ public class WeatherNow extends FragmentActivity {
 					@Override
 					public void run() {
 						TextView mainText = (TextView) findViewById(R.id.weather_now_text);
+						mainText.setMovementMethod(new ScrollingMovementMethod());
 						mainText.setText(weatherData);
 					}
 				});
