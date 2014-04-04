@@ -1,8 +1,6 @@
 package com.bk.theweatherlive;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -47,11 +45,13 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 			SyncResult syncResult) {
 		final String units = extras.getString("units", "metric");
 		final String forecastDays = extras.getString("forecast_days", "14");
+		final double latitude = extras.getDouble("latitude");
+		final double longitude = extras.getDouble("longitude");
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
 				try {
 					try {
-						URL weatherApi = new URL("http://api.openweathermap.org/data/2.5/weather?q=Sofia&mode=xml&units=" + units);
+						URL weatherApi = new URL("http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&mode=xml&units=" + units);
 						try {
 							WeatherNowParser parser = new WeatherNowParser();
 							String data = parser.parse(weatherApi.openStream());
@@ -77,7 +77,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 				}
 				try {
 					try {
-						URL hourlyWeatherApi = new URL("http://api.openweathermap.org/data/2.5/forecast?q=Sofia&mode=xml&units=" + units);
+						URL hourlyWeatherApi = new URL("http://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&mode=xml&units=" + units);
 						try {
 							HourlyParser parser = new HourlyParser();
 							String hourlyData = parser.parse(hourlyWeatherApi.openStream());
@@ -103,7 +103,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 				}
 				try {
 					try {
-						URL forecastWeatherApi = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=Sofia&mode=xml&units=" + units + "&cnt=" + forecastDays);
+						URL forecastWeatherApi = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + latitude + "&lon=" + longitude + "&mode=xml&units=" + units + "&cnt=" + forecastDays);
 						try {
 							ForecastParser parser = new ForecastParser();
 							String forecastData = parser.parse(forecastWeatherApi.openStream(), units);

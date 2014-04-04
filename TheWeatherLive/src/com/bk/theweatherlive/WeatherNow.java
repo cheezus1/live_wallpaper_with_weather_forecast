@@ -9,11 +9,17 @@ import java.util.Locale;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -34,7 +40,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class WeatherNow extends FragmentActivity {
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.LocationClient;
+
+public class WeatherNow extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, android.location.LocationListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -50,6 +61,9 @@ public class WeatherNow extends FragmentActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+    LocationClient mLocationClient;
+    LocationManager mLocationManager;
+    Location mCurrentLocation;
     ImageButton refreshButton;
     SharedPreferences preferences;
     Account mAccount;
@@ -61,7 +75,10 @@ public class WeatherNow extends FragmentActivity {
     public static final String AUTHORITY = "com.bk.theweatherlive.provider";
     public static final String ACCOUNT_TYPE = "example.com";
     public static final String ACCOUNT = "Weather Update";
-
+    public static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1;
+    private static final long MIN_TIME_BETWEEN_UPDATES = 1000 * 60 * 1;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,11 +94,27 @@ public class WeatherNow extends FragmentActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(1);
         
+        mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        mLocationClient = new LocationClient(this, this, this);
+        
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         
         initRefreshButton();
     	
         mAccount = CreateSyncAccount(this);
+    }
+    
+    @Override
+    public void onStart() {
+    	super.onStart();
+    	mLocationClient.connect();
+    	servicesConnected();
+    }
+    
+    @Override
+    protected void onStop() {
+    	mLocationClient.disconnect();
+    	super.onStop();
     }
     
     public static Account CreateSyncAccount(Context context) {
@@ -104,6 +137,7 @@ public class WeatherNow extends FragmentActivity {
 			@Override
 			public void onClick(View v) {
 				// THIS IS A PLACEHOLDER CODE! IT WILL BE REPLACED IN LATER VERSIONS!
+				
 				Thread thread = new Thread(new Runnable() {
 
 					@Override
@@ -114,12 +148,17 @@ public class WeatherNow extends FragmentActivity {
 								updateProgress.setVisibility(View.VISIBLE);
 							}
 						});
+						mCurrentLocation = mLocationClient.getLastLocation();
 						Bundle settingsBundle = new Bundle();
 						settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
 						settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
 						settingsBundle.putString("units", preferences.getString("units", "metric"));
 						settingsBundle.putString("forecast_days", preferences.getString("forecast_days", "14"));
+						settingsBundle.putDouble("latitude", mCurrentLocation.getLatitude());
+						settingsBundle.putDouble("longitude", mCurrentLocation.getLongitude());
 						ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
+						
+						
 						//while(ContentResolver.isSyncPending(mAccount, AUTHORITY) || ContentResolver.isSyncActive(mAccount, AUTHORITY)){}
 						//String toastText = "default text";
 						updateInUi();
@@ -131,7 +170,6 @@ public class WeatherNow extends FragmentActivity {
     }
     
     private void updateInUi() {
-    	
     	Thread thread1 = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -378,5 +416,114 @@ public class WeatherNow extends FragmentActivity {
     		return rootView;
     	}    	
     }
+
+    public static class ErrorDialogFragment extends DialogFragment {
+    	
+    	private Dialog mDialog;
+    	
+    	public ErrorDialogFragment() {
+    		super();
+    		mDialog = null;
+    	}
+    	
+    	public void setDialog(Dialog dialog) {
+    		mDialog = dialog;
+    	}
+    	
+    	@Override
+    	public Dialog onCreateDialog(Bundle savedInstanceState) {
+    		return mDialog;
+    	}
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	switch(requestCode) {
+    	case CONNECTION_FAILURE_RESOLUTION_REQUEST:
+    		switch(resultCode) {
+    		case Activity.RESULT_OK:
+    			mLocationClient.connect();
+    			break;
+    		}
+    	}
+    }
+    
+    public boolean servicesConnected() {
+    	int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+    	if(ConnectionResult.SUCCESS == resultCode) {
+    		Log.d("Location Updates", "Google Play Services Available");
+    		return true;
+    	} else {
+    		Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, this, 0);
+    		if(dialog != null) {
+    			ErrorDialogFragment errorFragment = new ErrorDialogFragment();
+    			errorFragment.setDialog(dialog);
+    			errorFragment.show(this.getFragmentManager(), "Location updates");
+    		}
+    		return false;
+    	}
+    }
+
+    @Override
+    public void onConnected(Bundle dataBundle) {
+    	Toast.makeText(this, "Connected", Toast.LENGTH_LONG).show();
+    	if(mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+    		mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BETWEEN_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+    	} else if(mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+    		mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BETWEEN_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+    	}
+    }
+    
+    @Override
+    public void onDisconnected() {
+    	Toast.makeText(this,  "Disconnected. Please re-connect", Toast.LENGTH_LONG).show();
+    }
+    
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+    	if(connectionResult.hasResolution()) {
+    		try {
+    			connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+    		} catch(IntentSender.SendIntentException e) {
+    			e.printStackTrace();
+    		}
+    	} else {
+    		showDialog(connectionResult.getErrorCode());
+    	}
+    }
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+
+  
+
+
+
+
+
+
 
 }
