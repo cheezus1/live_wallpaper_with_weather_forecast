@@ -77,7 +77,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     public static final String ACCOUNT = "Weather Update";
     public static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1;
-    private static final long MIN_TIME_BETWEEN_UPDATES = 1000 * 60 * 1;
+    private static long MIN_TIME_BETWEEN_UPDATES;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +98,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
         mLocationClient = new LocationClient(this, this, this);
         
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        MIN_TIME_BETWEEN_UPDATES = 1000 * 60 * Long.parseLong(preferences.getString("update_frequency", "1"));
         
         initRefreshButton();
     	
