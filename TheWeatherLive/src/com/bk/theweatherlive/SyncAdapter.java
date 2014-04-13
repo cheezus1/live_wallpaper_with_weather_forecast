@@ -10,6 +10,7 @@ import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
 import android.util.Log;
@@ -127,6 +128,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				getContext().sendBroadcast(new Intent(WeatherNow.ACTION_FINISHED_SYNC));
 			}
 			
 		});

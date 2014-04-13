@@ -8,23 +8,23 @@ package com.google.android.gms;
 
 public final class R {
 	public static final class attr {
-		public static final int adSize = 0x7f01006e;
-		public static final int adSizes = 0x7f01006f;
-		public static final int adUnitId = 0x7f010070;
-		public static final int cameraBearing = 0x7f010072;
-		public static final int cameraTargetLat = 0x7f010073;
-		public static final int cameraTargetLng = 0x7f010074;
-		public static final int cameraTilt = 0x7f010075;
-		public static final int cameraZoom = 0x7f010076;
-		public static final int mapType = 0x7f010071;
-		public static final int uiCompass = 0x7f010077;
-		public static final int uiRotateGestures = 0x7f010078;
-		public static final int uiScrollGestures = 0x7f010079;
-		public static final int uiTiltGestures = 0x7f01007a;
-		public static final int uiZoomControls = 0x7f01007b;
-		public static final int uiZoomGestures = 0x7f01007c;
-		public static final int useViewLifecycle = 0x7f01007d;
-		public static final int zOrderOnTop = 0x7f01007e;
+		public static final int adSize = 0x7f01006a;
+		public static final int adSizes = 0x7f01006b;
+		public static final int adUnitId = 0x7f01006c;
+		public static final int cameraBearing = 0x7f01006e;
+		public static final int cameraTargetLat = 0x7f01006f;
+		public static final int cameraTargetLng = 0x7f010070;
+		public static final int cameraTilt = 0x7f010071;
+		public static final int cameraZoom = 0x7f010072;
+		public static final int mapType = 0x7f01006d;
+		public static final int uiCompass = 0x7f010073;
+		public static final int uiRotateGestures = 0x7f010074;
+		public static final int uiScrollGestures = 0x7f010075;
+		public static final int uiTiltGestures = 0x7f010076;
+		public static final int uiZoomControls = 0x7f010077;
+		public static final int uiZoomGestures = 0x7f010078;
+		public static final int useViewLifecycle = 0x7f010079;
+		public static final int zOrderOnTop = 0x7f01007a;
 	}
 	public static final class color {
 		public static final int common_action_bar_splitter = 0x7f08000c;
@@ -110,11 +110,11 @@ public final class R {
 		public static final int location_client_powered_by_google = 0x7f0b0027;
 	}
 	public static final class styleable {
-		public static final int[] AdsAttrs = { 0x7f01006e, 0x7f01006f, 0x7f010070 };
+		public static final int[] AdsAttrs = { 0x7f01006a, 0x7f01006b, 0x7f01006c };
 		public static final int AdsAttrs_adSize = 0;
 		public static final int AdsAttrs_adSizes = 1;
 		public static final int AdsAttrs_adUnitId = 2;
-		public static final int[] MapAttrs = { 0x7f010071, 0x7f010072, 0x7f010073, 0x7f010074, 0x7f010075, 0x7f010076, 0x7f010077, 0x7f010078, 0x7f010079, 0x7f01007a, 0x7f01007b, 0x7f01007c, 0x7f01007d, 0x7f01007e };
+		public static final int[] MapAttrs = { 0x7f01006d, 0x7f01006e, 0x7f01006f, 0x7f010070, 0x7f010071, 0x7f010072, 0x7f010073, 0x7f010074, 0x7f010075, 0x7f010076, 0x7f010077, 0x7f010078, 0x7f010079, 0x7f01007a };
 		public static final int MapAttrs_cameraBearing = 1;
 		public static final int MapAttrs_cameraTargetLat = 2;
 		public static final int MapAttrs_cameraTargetLng = 3;

@@ -13,9 +13,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -75,9 +77,18 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     public static final String AUTHORITY = "com.bk.theweatherlive.provider";
     public static final String ACCOUNT_TYPE = "example.com";
     public static final String ACCOUNT = "Weather Update";
+    public static final String ACTION_FINISHED_SYNC = "com.bk.theweatherlive.ACTION_FINISHED_SYNC";
     public static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1000 * 10;
     private static long MIN_TIME_BETWEEN_UPDATES;
+    private static IntentFilter syncIntentFilter = new IntentFilter(ACTION_FINISHED_SYNC);
+    private BroadcastReceiver syncBroadcastReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			updateInUi();
+		}
+    	
+    };
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +121,18 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     	super.onStart();
     	mLocationClient.connect();
     	servicesConnected();
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	registerReceiver(syncBroadcastReceiver, syncIntentFilter);
+    }
+    
+    @Override
+    protected void onPause() {
+    	unregisterReceiver(syncBroadcastReceiver);
+    	super.onPause();
     }
     
     @Override
@@ -162,7 +185,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 						
 						//while(ContentResolver.isSyncPending(mAccount, AUTHORITY) || ContentResolver.isSyncActive(mAccount, AUTHORITY)){}
 						//String toastText = "default text";
-						updateInUi();
+						//updateInUi();
 					}
 				});
 				thread.start();
