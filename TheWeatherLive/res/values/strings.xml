@@ -13,5 +13,14 @@
     <string name="button_close">Close</string>
     <string name="title_activity_help">Help</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_general_help">General</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_hourly_section_help">Hourly section</string>
+    <string name="title_activity_now_section_help">Now section</string>
+    <string name="title_activity_next_days_section_help">Next days section</string>
+    <string name="title_activity_refreshing_weather_data_help">Refreshing weather data</string>
+    <string name="title_activity_action_bar_help">Action bar</string>
+    <string name="title_activity_changing_settings_help">Changing settings of the application</string>
+    <string name="title_activity_sending_feedback_help">Sending feedback</string>
 
 </resources>

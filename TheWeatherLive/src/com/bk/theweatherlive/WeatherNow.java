@@ -76,7 +76,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     public static final String ACCOUNT_TYPE = "example.com";
     public static final String ACCOUNT = "Weather Update";
     public static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1;
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1000 * 10;
     private static long MIN_TIME_BETWEEN_UPDATES;
     
     @Override
@@ -284,25 +284,25 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     }
     
     public boolean onOptionsItemSelected(MenuItem item) {
-    	switch(item.getItemId()) {
-    		case R.id.action_settings:
-    			Intent settingsActivityIntent = new Intent(this, SettingsActivity.class);
-    			startActivity(settingsActivityIntent, null);
-    			return true;
-    		case R.id.action_help:
-    			Intent helpActivityIntent = new Intent(this, HelpActivity.class);
-    			startActivity(helpActivityIntent, null);
-    			return true;
-    		case R.id.action_about:
-    			new AlertDialog.Builder(this)
-    			.setTitle(WeatherNow.this.getResources().getString(R.string.app_name))
-    			.setMessage("Live wallpaper with weather forecast.")
-    			.setIcon(R.drawable.ic_launcher)
-    			.show();
-    			return true;
-    		default:
-    			return super.onOptionsItemSelected(item);
-    	}
+    	int itemId = item.getItemId();
+		if (itemId == R.id.action_settings) {
+			Intent settingsActivityIntent = new Intent(this, SettingsActivity.class);
+			startActivity(settingsActivityIntent, null);
+			return true;
+		} else if (itemId == R.id.action_help) {
+			Intent helpActivityIntent = new Intent(this, HelpActivity.class);
+			startActivity(helpActivityIntent, null);
+			return true;
+		} else if (itemId == R.id.action_about) {
+			new AlertDialog.Builder(this)
+			.setTitle(WeatherNow.this.getResources().getString(R.string.app_name))
+			.setMessage("Live wallpaper with weather forecast.")
+			.setIcon(R.drawable.ic_launcher)
+			.show();
+			return true;
+		} else {
+			return super.onOptionsItemSelected(item);
+		}
     }
     
     
