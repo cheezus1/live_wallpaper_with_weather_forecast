@@ -77,17 +77,35 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     public static final String AUTHORITY = "com.bk.theweatherlive.provider";
     public static final String ACCOUNT_TYPE = "example.com";
     public static final String ACCOUNT = "Weather Update";
-    public static final String ACTION_FINISHED_SYNC = "com.bk.theweatherlive.ACTION_FINISHED_SYNC";
     public static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1000 * 10;
     private static long MIN_TIME_BETWEEN_UPDATES;
+    
+    public static final String ACTION_FINISHED_SYNC = "com.bk.theweatherlive.ACTION_FINISHED_SYNC";
     private static IntentFilter syncIntentFilter = new IntentFilter(ACTION_FINISHED_SYNC);
     private BroadcastReceiver syncBroadcastReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			updateInUi();
 		}
-    	
+    };
+
+    public static final String ACTION_OPENED_HOURLY = "com.bk.theweatherlive.ACTION_OPENED_HOURLY";
+    private static IntentFilter hourlyIntentFilter = new IntentFilter(ACTION_OPENED_HOURLY);
+    private BroadcastReceiver hourlyBroadcastReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			updateHourlyData();
+		}
+    };
+    
+    public static final String ACTION_OPENED_FORECAST = "com.bk.theweatherlive.ACTION_OPENED_FORECAST";
+    private static IntentFilter forecastIntentFilter = new IntentFilter(ACTION_OPENED_FORECAST);
+    private BroadcastReceiver forecastBroadcastReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			updateForecastData();
+		}
     };
     
     @Override
@@ -127,11 +145,15 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     protected void onResume() {
     	super.onResume();
     	registerReceiver(syncBroadcastReceiver, syncIntentFilter);
+    	registerReceiver(hourlyBroadcastReceiver, hourlyIntentFilter);
+    	registerReceiver(forecastBroadcastReceiver, forecastIntentFilter);
     }
     
     @Override
     protected void onPause() {
     	unregisterReceiver(syncBroadcastReceiver);
+    	unregisterReceiver(hourlyBroadcastReceiver);
+    	unregisterReceiver(forecastBroadcastReceiver);
     	super.onPause();
     }
     
@@ -267,10 +289,15 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						mViewPager.setCurrentItem(1);
-						updateHourlyData();
+						//mViewPager.setCurrentItem(1);
+						if(mViewPager.getCurrentItem() != 2) {
+							updateHourlyData();
+						}
 						updateCurrentData();
-						updateForecastData();
+						if(mViewPager.getCurrentItem() != 0) {
+							updateForecastData();
+						}
+						
 					}
 				});
 			}
@@ -351,6 +378,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 	            Bundle args1 = new Bundle();
 	            args1.putInt(HourlySectionFragment.ARG_SECTION_NUMBER, position + 1);
 	            fragment1.setArguments(args1);
+	            getBaseContext().sendBroadcast(new Intent(WeatherNow.ACTION_OPENED_HOURLY));
 	            return fragment1;
         	case 1:
         		Fragment fragment2 = new NowSectionFragment();
@@ -363,6 +391,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
         		Bundle args3 = new Bundle();
         		args3.putInt(ForecastSectionFragment.ARG_SECTION_NUMBER,  position + 1);
         		fragment3.setArguments(args3);
+        		getBaseContext().sendBroadcast(new Intent(WeatherNow.ACTION_OPENED_FORECAST));
         		return fragment3;
         	}
         	return null;
