@@ -10,7 +10,6 @@ import android.util.Log;
 import android.util.Xml;
 
 public class ForecastParser {
-private static final String ns = null;
 	
 	public String parse(InputStream in, String units) throws XmlPullParserException, IOException {
 		try {

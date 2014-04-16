@@ -10,7 +10,6 @@ import android.util.Log;
 import android.util.Xml;
 
 public class WeatherNowParser {
-	private static final String ns = null;
 	
 	public String parse(InputStream in) throws XmlPullParserException, IOException {
 		try {
@@ -24,7 +23,6 @@ public class WeatherNowParser {
 	}
 	
 	private String readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
-		String data = "";
 		StringBuilder stringBuilder = new StringBuilder();
 		Boolean celsius = false;
 		

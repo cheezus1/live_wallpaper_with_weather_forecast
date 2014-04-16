@@ -47,7 +47,7 @@ public class HelpActivity extends Activity {
     
 				int itemPosition = position;
     
-				String itemValue = (String) helpList.getItemAtPosition(position);
+				//String itemValue = (String) helpList.getItemAtPosition(position);
     
 				switch(itemPosition) {
 					case 0:
