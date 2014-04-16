@@ -38,9 +38,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,8 +71,8 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     Account mAccount;
     final Handler mHandler = new Handler();
     String now = "No weather data available.\nPlease press the update button.";
-    String[] hourly = new String[8];
-    String[] forecast = new String[14];
+    String hourly = "No weather data available.\nPlease press the update button.";
+    String forecast = "No weather data available.\nPlease press the update button.";
     
     public static final String AUTHORITY = "com.bk.theweatherlive.provider";
     public static final String ACCOUNT_TYPE = "example.com";
@@ -223,25 +221,18 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 					case 0:
 						try {
 				            InputStream inputStream = openFileInput("hourly.txt");
-				            int j = 0, lcount = 0; 
+				             
 				            if ( inputStream != null ) {
 				                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 				                StringBuilder stringBuilder = new StringBuilder();
 				                 
-				                while ( (hourly[j] = bufferedReader.readLine()) != null ) {
+				                while ( (hourly = bufferedReader.readLine()) != null ) {
 				                    stringBuilder.append(hourly + "\n");
-				                    lcount++;
-				                    if(lcount == 4) {
-				                    	hourly[j] = stringBuilder.toString();
-				                    	j++;
-				                    	lcount = 0;
-				                    	stringBuilder = new StringBuilder();
-				                    }
 				                }
 				                 
 				                inputStream.close();
-				                //hourly = stringBuilder.toString();
+				                hourly = stringBuilder.toString();
 				            }
 				        } catch (FileNotFoundException e) {
 				            
@@ -272,25 +263,18 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 					case 2:
 						try {
 				            InputStream inputStream = openFileInput("forecast.txt");
-				            int j = 0, lcount = 0; 
+				             
 				            if ( inputStream != null ) {
 				                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 				                StringBuilder stringBuilder = new StringBuilder();
 				                 
-				                while ( (forecast[j] = bufferedReader.readLine()) != null ) {
+				                while ( (forecast = bufferedReader.readLine()) != null ) {
 				                    stringBuilder.append(forecast + "\n");
-				                    lcount++;
-				                    if(lcount == 4) {
-				                    	forecast[j] =  stringBuilder.toString();
-				                    	j++;
-				                    	lcount = 0;
-				                    	stringBuilder = new StringBuilder();
-				                    }
 				                }
 				                 
 				                inputStream.close();
-				                //forecast = stringBuilder.toString();
+				                forecast = stringBuilder.toString();
 				            }
 				        } catch (FileNotFoundException e) {
 				            
@@ -320,13 +304,10 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     }
     
     private void updateHourlyData() {
-    	ListView hourlyList;
-    	hourlyList = (ListView) findViewById(R.id.hourlyList);
-    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
-				android.R.layout.simple_list_item_1, 
-				android.R.id.text1, 
-				hourly);
-    	hourlyList.setAdapter(adapter);
+    	TextView mainText;
+    	mainText = (TextView) findViewById(R.id.weather_hourly_text);
+		mainText.setMovementMethod(new ScrollingMovementMethod());
+		mainText.setText(hourly);
     }
     
     private void updateCurrentData() {
@@ -337,13 +318,10 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     }
     
     private void updateForecastData() {
-    	ListView forecastList;
-    	forecastList = (ListView) findViewById(R.id.forecastList);
-    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
-				android.R.layout.simple_list_item_1, 
-				android.R.id.text1, 
-				forecast);
-    	forecastList.setAdapter(adapter);
+    	TextView mainText;
+    	mainText = (TextView) findViewById(R.id.weather_forecast_text);
+		mainText.setMovementMethod(new ScrollingMovementMethod());
+		mainText.setText(forecast);
     }
     
     @Override
