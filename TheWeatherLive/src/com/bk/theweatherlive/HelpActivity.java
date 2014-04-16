@@ -30,7 +30,7 @@ public class HelpActivity extends Activity {
 							"Refreshing weather data",
 							"Action bar",
 							"Changing settings of the application",
-							"Sending feedback"};
+							"Send feedback"};
   
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
 												android.R.layout.simple_list_item_1, 
@@ -79,9 +79,11 @@ public class HelpActivity extends Activity {
 						startActivity(changingSettingsHelpIntent, null);
 						break;
 					case 7:
-						Intent sendingFeedbackHelpIntent = new Intent(getApplicationContext(), SendingFeedbackHelp.class);
-						startActivity(sendingFeedbackHelpIntent, null);
-						break;
+						Intent sendFeedback = new Intent(Intent.ACTION_SEND);
+						sendFeedback.setType("message/rfc882");
+						sendFeedback.putExtra(Intent.EXTRA_EMAIL, new String[]{"theweatherlive@gmail.com"});
+						sendFeedback.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+						startActivity(sendFeedback);
 				}
 			}
    

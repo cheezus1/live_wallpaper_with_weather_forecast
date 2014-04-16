@@ -37,7 +37,7 @@ private static final String ns = null;
 			Log.d("TWL", "GOT NAME");
 			if(name.equals("time")) {
 				Log.d("TWL", "ENTERED CASE TIME");
-				stringBuilder.append("\n" + parser.getAttributeValue(0) + " \n");
+				stringBuilder.append(/*"\n" + */parser.getAttributeValue(0) + " \n");
 			} else if(name.equals("temperature")) {
 				Log.d("TWL", "ENTERED CASE TEMP");
 				stringBuilder.append(parser.getAttributeValue(0));

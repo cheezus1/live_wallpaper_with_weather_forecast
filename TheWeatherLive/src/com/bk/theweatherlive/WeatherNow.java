@@ -38,7 +38,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,9 +72,9 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     SharedPreferences preferences;
     Account mAccount;
     final Handler mHandler = new Handler();
-    String now = "default text";
-    String hourly = "default text";
-    String forecast = "default text";
+    String now = "No weather data available.\nPlease press the update button.";
+    String[] hourly = new String[8];
+    String[] forecast = new String[14];
     
     public static final String AUTHORITY = "com.bk.theweatherlive.provider";
     public static final String ACCOUNT_TYPE = "example.com";
@@ -130,7 +132,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
         MIN_TIME_BETWEEN_UPDATES = 1000 * 60 * Long.parseLong(preferences.getString("update_frequency", "1"));
         
         initRefreshButton();
-    	
+        
         mAccount = CreateSyncAccount(this);
     }
     
@@ -176,43 +178,40 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 
     public void initRefreshButton() {
     	refreshButton = (ImageButton) findViewById(R.id.refreshButton);
-    	final View updateProgress = findViewById(R.id.updateProgress);
     	
     	refreshButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// THIS IS A PLACEHOLDER CODE! IT WILL BE REPLACED IN LATER VERSIONS!
-				
-				Thread thread = new Thread(new Runnable() {
-
-					@Override
-					public void run() {
-						runOnUiThread(new Runnable() {
-							@Override
-							public void run() {
-								updateProgress.setVisibility(View.VISIBLE);
-							}
-						});
-						mCurrentLocation = mLocationClient.getLastLocation();
-						Bundle settingsBundle = new Bundle();
-						settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-						settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-						settingsBundle.putString("units", preferences.getString("units", "metric"));
-						settingsBundle.putString("forecast_days", preferences.getString("forecast_days", "14"));
-						settingsBundle.putDouble("latitude", mCurrentLocation.getLatitude());
-						settingsBundle.putDouble("longitude", mCurrentLocation.getLongitude());
-						ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
-						
-						
-						//while(ContentResolver.isSyncPending(mAccount, AUTHORITY) || ContentResolver.isSyncActive(mAccount, AUTHORITY)){}
-						//String toastText = "default text";
-						//updateInUi();
-					}
-				});
-				thread.start();
+				sync();
 			}
     	});
+    }
+    
+    public void sync() {
+    	final View updateProgress = findViewById(R.id.updateProgress);
+    	Thread thread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						updateProgress.setVisibility(View.VISIBLE);
+					}
+				});
+				mCurrentLocation = mLocationClient.getLastLocation();
+				Bundle settingsBundle = new Bundle();
+				settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+				settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+				settingsBundle.putString("units", preferences.getString("units", "metric"));
+				settingsBundle.putString("forecast_days", preferences.getString("forecast_days", "14"));
+				settingsBundle.putDouble("latitude", mCurrentLocation.getLatitude());
+				settingsBundle.putDouble("longitude", mCurrentLocation.getLongitude());
+				ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
+			}
+		});
+		thread.start();
     }
     
     private void updateInUi() {
@@ -224,18 +223,25 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 					case 0:
 						try {
 				            InputStream inputStream = openFileInput("hourly.txt");
-				             
+				            int j = 0, lcount = 0; 
 				            if ( inputStream != null ) {
 				                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 				                StringBuilder stringBuilder = new StringBuilder();
 				                 
-				                while ( (hourly = bufferedReader.readLine()) != null ) {
+				                while ( (hourly[j] = bufferedReader.readLine()) != null ) {
 				                    stringBuilder.append(hourly + "\n");
+				                    lcount++;
+				                    if(lcount == 4) {
+				                    	hourly[j] = stringBuilder.toString();
+				                    	j++;
+				                    	lcount = 0;
+				                    	stringBuilder = new StringBuilder();
+				                    }
 				                }
 				                 
 				                inputStream.close();
-				                hourly = stringBuilder.toString();
+				                //hourly = stringBuilder.toString();
 				            }
 				        } catch (FileNotFoundException e) {
 				            
@@ -266,18 +272,25 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 					case 2:
 						try {
 				            InputStream inputStream = openFileInput("forecast.txt");
-				             
+				            int j = 0, lcount = 0; 
 				            if ( inputStream != null ) {
 				                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 				                StringBuilder stringBuilder = new StringBuilder();
 				                 
-				                while ( (forecast = bufferedReader.readLine()) != null ) {
+				                while ( (forecast[j] = bufferedReader.readLine()) != null ) {
 				                    stringBuilder.append(forecast + "\n");
+				                    lcount++;
+				                    if(lcount == 4) {
+				                    	forecast[j] =  stringBuilder.toString();
+				                    	j++;
+				                    	lcount = 0;
+				                    	stringBuilder = new StringBuilder();
+				                    }
 				                }
 				                 
 				                inputStream.close();
-				                forecast = stringBuilder.toString();
+				                //forecast = stringBuilder.toString();
 				            }
 				        } catch (FileNotFoundException e) {
 				            
@@ -289,6 +302,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
+						final View updateProgress = findViewById(R.id.updateProgress);
 						//mViewPager.setCurrentItem(1);
 						if(mViewPager.getCurrentItem() != 2) {
 							updateHourlyData();
@@ -297,7 +311,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 						if(mViewPager.getCurrentItem() != 0) {
 							updateForecastData();
 						}
-						
+						updateProgress.setVisibility(View.INVISIBLE);
 					}
 				});
 			}
@@ -306,10 +320,13 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     }
     
     private void updateHourlyData() {
-    	TextView mainText;
-    	mainText = (TextView) findViewById(R.id.weather_hourly_text);
-		mainText.setMovementMethod(new ScrollingMovementMethod());
-		mainText.setText(hourly);
+    	ListView hourlyList;
+    	hourlyList = (ListView) findViewById(R.id.hourlyList);
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
+				android.R.layout.simple_list_item_1, 
+				android.R.id.text1, 
+				hourly);
+    	hourlyList.setAdapter(adapter);
     }
     
     private void updateCurrentData() {
@@ -320,10 +337,13 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     }
     
     private void updateForecastData() {
-    	TextView mainText;
-    	mainText = (TextView) findViewById(R.id.weather_forecast_text);
-		mainText.setMovementMethod(new ScrollingMovementMethod());
-		mainText.setText(forecast);
+    	ListView forecastList;
+    	forecastList = (ListView) findViewById(R.id.forecastList);
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
+				android.R.layout.simple_list_item_1, 
+				android.R.id.text1, 
+				forecast);
+    	forecastList.setAdapter(adapter);
     }
     
     @Override
@@ -378,7 +398,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 	            Bundle args1 = new Bundle();
 	            args1.putInt(HourlySectionFragment.ARG_SECTION_NUMBER, position + 1);
 	            fragment1.setArguments(args1);
-	            getBaseContext().sendBroadcast(new Intent(WeatherNow.ACTION_OPENED_HOURLY));
+	            //getBaseContext().sendBroadcast(new Intent(WeatherNow.ACTION_OPENED_HOURLY));
 	            return fragment1;
         	case 1:
         		Fragment fragment2 = new NowSectionFragment();
@@ -391,7 +411,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
         		Bundle args3 = new Bundle();
         		args3.putInt(ForecastSectionFragment.ARG_SECTION_NUMBER,  position + 1);
         		fragment3.setArguments(args3);
-        		getBaseContext().sendBroadcast(new Intent(WeatherNow.ACTION_OPENED_FORECAST));
+        		//getBaseContext().sendBroadcast(new Intent(WeatherNow.ACTION_OPENED_FORECAST));
         		return fragment3;
         	}
         	return null;
@@ -440,6 +460,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
             //Remove the numbers of the tabs
            /* TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
             dummyTextView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));*/
+            getActivity().sendBroadcast(new Intent(WeatherNow.ACTION_OPENED_HOURLY));
             return rootView;
         }
     }
@@ -466,6 +487,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     	@Override
     	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     		View rootView = inflater.inflate(R.layout.fragment_weather_now_forecast, container, false);
+    		getActivity().sendBroadcast(new Intent(WeatherNow.ACTION_OPENED_FORECAST));
     		return rootView;
     	}    	
     }
@@ -525,6 +547,11 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     	} else if(mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
     		mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BETWEEN_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
     	}
+    	if(preferences.getBoolean("enable_update_on_launch", true)) {
+        	sync(); //Commented for testing the code in an emulator
+        } else {
+        	updateInUi();
+        }
     }
     
     @Override
