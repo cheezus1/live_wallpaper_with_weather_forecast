@@ -309,7 +309,7 @@ int drawable ic_plusone_tall_off_client 0x7f02007b
 int drawable refresh 0x7f02007c
 int drawable refresh_button 0x7f02007d
 int drawable refresh_pressed 0x7f02007e
-int id action_about 0x7f07004b
+int id action_about 0x7f07004c
 int id action_bar 0x7f07001f
 int id action_bar_activity_content 0x7f070018
 int id action_bar_container 0x7f07001e
@@ -318,11 +318,11 @@ int id action_bar_root 0x7f07001d
 int id action_bar_subtitle 0x7f070026
 int id action_bar_title 0x7f070025
 int id action_context_bar 0x7f070020
-int id action_help 0x7f07004a
+int id action_help 0x7f07004b
 int id action_menu_divider 0x7f070019
 int id action_menu_presenter 0x7f07001a
 int id action_mode_close_button 0x7f070027
-int id action_settings 0x7f070049
+int id action_settings 0x7f07004a
 int id activity_chooser_view_content 0x7f070028
 int id always 0x7f07000f
 int id beginning 0x7f070014
@@ -337,6 +337,7 @@ int id edit_query 0x7f070033
 int id end 0x7f070016
 int id expand_activities_button 0x7f070029
 int id expanded_menu 0x7f07002f
+int id general_help_text 0x7f070046
 int id helpList 0x7f070040
 int id home 0x7f070017
 int id homeAsUp 0x7f070009
@@ -381,9 +382,9 @@ int id top_action_bar 0x7f070023
 int id up 0x7f070024
 int id updateProgress 0x7f070045
 int id useLogo 0x7f070007
-int id weather_forecast_text 0x7f070046
-int id weather_hourly_text 0x7f070047
-int id weather_now_text 0x7f070048
+int id weather_forecast_text 0x7f070047
+int id weather_hourly_text 0x7f070048
+int id weather_now_text 0x7f070049
 int id withText 0x7f070010
 int integer abc_max_action_buttons 0x7f090001
 int integer google_play_services_version 0x7f090000

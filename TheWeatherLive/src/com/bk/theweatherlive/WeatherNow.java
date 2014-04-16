@@ -305,19 +305,25 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 						}
 						mWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
 						try {
-							if(now.toUpperCase().contains("CLEAR")) {
+							if(now.contains("CLEAR")) {
 								bg.setBackgroundResource(R.drawable.background_sunny);
 								mWallpaperManager.setResource(R.drawable.background_sunny);
-							} else if(now.toUpperCase().contains("CLOUD")) {
+							} else if(now.contains("OVERCAST")) {
+								bg.setBackgroundResource(R.drawable.background_overcast);
+								mWallpaperManager.setResource(R.drawable.background_overcast);
+							} else if(now.contains("CLOUD")) {
 								bg.setBackgroundResource(R.drawable.background_cloudy);
 								mWallpaperManager.setResource(R.drawable.background_cloudy);
-							} else if(now.toUpperCase().contains("RAIN")) {
+							} else if(now.contains("RAIN")) {
 								bg.setBackgroundResource(R.drawable.background_raining);
 								mWallpaperManager.setResource(R.drawable.background_raining);
-							} else if(now.toUpperCase().contains("SNOW")) {
+							} else if(now.contains("DRIZZLE")) {
+								bg.setBackgroundResource(R.drawable.background_raining);
+								mWallpaperManager.setResource(R.drawable.background_raining);
+							} else if(now.contains("SNOW")) {
 								bg.setBackgroundResource(R.drawable.background_snowing);
 								mWallpaperManager.setResource(R.drawable.background_snowing);
-							} else if(now.toUpperCase().contains("THUNDERSTORM")) {
+							} else if(now.contains("THUNDERSTORM")) {
 								bg.setBackgroundResource(R.drawable.background_thunderstorm);
 								mWallpaperManager.setResource(R.drawable.background_thunderstorm);
 							} else {

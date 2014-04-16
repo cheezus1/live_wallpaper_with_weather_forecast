@@ -1298,7 +1298,7 @@ containing a value of this type.
         public static final int refresh_pressed=0x7f02007e;
     }
     public static final class id {
-        public static final int action_about=0x7f07004b;
+        public static final int action_about=0x7f07004c;
         public static final int action_bar=0x7f07001f;
         public static final int action_bar_activity_content=0x7f070018;
         public static final int action_bar_container=0x7f07001e;
@@ -1307,11 +1307,11 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f070026;
         public static final int action_bar_title=0x7f070025;
         public static final int action_context_bar=0x7f070020;
-        public static final int action_help=0x7f07004a;
+        public static final int action_help=0x7f07004b;
         public static final int action_menu_divider=0x7f070019;
         public static final int action_menu_presenter=0x7f07001a;
         public static final int action_mode_close_button=0x7f070027;
-        public static final int action_settings=0x7f070049;
+        public static final int action_settings=0x7f07004a;
         public static final int activity_chooser_view_content=0x7f070028;
         public static final int always=0x7f07000f;
         public static final int beginning=0x7f070014;
@@ -1326,6 +1326,7 @@ containing a value of this type.
         public static final int end=0x7f070016;
         public static final int expand_activities_button=0x7f070029;
         public static final int expanded_menu=0x7f07002f;
+        public static final int general_help_text=0x7f070046;
         public static final int helpList=0x7f070040;
         public static final int home=0x7f070017;
         public static final int homeAsUp=0x7f070009;
@@ -1370,9 +1371,9 @@ containing a value of this type.
         public static final int up=0x7f070024;
         public static final int updateProgress=0x7f070045;
         public static final int useLogo=0x7f070007;
-        public static final int weather_forecast_text=0x7f070046;
-        public static final int weather_hourly_text=0x7f070047;
-        public static final int weather_now_text=0x7f070048;
+        public static final int weather_forecast_text=0x7f070047;
+        public static final int weather_hourly_text=0x7f070048;
+        public static final int weather_now_text=0x7f070049;
         public static final int withText=0x7f070010;
     }
     public static final class integer {
