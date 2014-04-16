@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -75,6 +76,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     String hourly = "No weather data available.\nPlease press the update button.";
     String forecast = "No weather data available.\nPlease press the update button.";
     RelativeLayout bg;
+    private WallpaperManager mWallpaperManager;
     
     public static final String AUTHORITY = "com.bk.theweatherlive.provider";
     public static final String ACCOUNT_TYPE = "example.com";
@@ -301,14 +303,29 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 						if(bg == null) {
 							Log.d("twl", "FUCK JAVA");
 						}
-						if(now.contains("CLEAR")) {
-							bg.setBackgroundResource(R.drawable.background_sunny);
-						} else if(now.contains("CLOUD")) {
-							bg.setBackgroundResource(R.drawable.background_cloudy);
-						} else if(now.contains("RAIN")) {
-							bg.setBackgroundResource(R.drawable.background_raining);
-						} else {
-							bg.setBackgroundResource(R.drawable.background_overcast);
+						mWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
+						try {
+							if(now.toUpperCase().contains("CLEAR")) {
+								bg.setBackgroundResource(R.drawable.background_sunny);
+								mWallpaperManager.setResource(R.drawable.background_sunny);
+							} else if(now.toUpperCase().contains("CLOUD")) {
+								bg.setBackgroundResource(R.drawable.background_cloudy);
+								mWallpaperManager.setResource(R.drawable.background_cloudy);
+							} else if(now.toUpperCase().contains("RAIN")) {
+								bg.setBackgroundResource(R.drawable.background_raining);
+								mWallpaperManager.setResource(R.drawable.background_raining);
+							} else if(now.toUpperCase().contains("SNOW")) {
+								bg.setBackgroundResource(R.drawable.background_snowing);
+								mWallpaperManager.setResource(R.drawable.background_snowing);
+							} else if(now.toUpperCase().contains("THUNDERSTORM")) {
+								bg.setBackgroundResource(R.drawable.background_thunderstorm);
+								mWallpaperManager.setResource(R.drawable.background_thunderstorm);
+							} else {
+								bg.setBackgroundResource(R.drawable.background_overcast);
+								mWallpaperManager.setResource(R.drawable.background_overcast);
+							}
+						} catch(IOException e) {
+							Toast.makeText(getApplicationContext(), "Error while changing the wallpaper", Toast.LENGTH_SHORT).show();
 						}
 						updateProgress.setVisibility(View.INVISIBLE);
 					}
