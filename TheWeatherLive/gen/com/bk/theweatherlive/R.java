@@ -1202,7 +1202,7 @@ containing a value of this type.
         public static final int refresh_pressed=0x7f02007e;
     }
     public static final class id {
-        public static final int action_about=0x7f06004a;
+        public static final int action_about=0x7f06004b;
         public static final int action_bar=0x7f06001f;
         public static final int action_bar_activity_content=0x7f060015;
         public static final int action_bar_container=0x7f06001e;
@@ -1211,11 +1211,11 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f060026;
         public static final int action_bar_title=0x7f060025;
         public static final int action_context_bar=0x7f060020;
-        public static final int action_help=0x7f060049;
+        public static final int action_help=0x7f06004a;
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060027;
-        public static final int action_settings=0x7f060048;
+        public static final int action_settings=0x7f060049;
         public static final int activity_chooser_view_content=0x7f060028;
         public static final int always=0x7f06000b;
         public static final int beginning=0x7f060011;
@@ -1239,16 +1239,17 @@ containing a value of this type.
         public static final int image=0x7f06002a;
         public static final int listMode=0x7f060001;
         public static final int list_item=0x7f06002c;
+        public static final int main_activity_layout=0x7f060041;
         public static final int middle=0x7f060012;
         public static final int never=0x7f060009;
         public static final int none=0x7f060010;
         public static final int normal=0x7f060000;
-        public static final int pager=0x7f060041;
-        public static final int pager_title_strip=0x7f060042;
+        public static final int pager=0x7f060042;
+        public static final int pager_title_strip=0x7f060043;
         public static final int progress_circular=0x7f060018;
         public static final int progress_horizontal=0x7f060019;
         public static final int radio=0x7f060032;
-        public static final int refreshButton=0x7f060043;
+        public static final int refreshButton=0x7f060044;
         public static final int satellite=0x7f06001a;
         public static final int search_badge=0x7f060035;
         public static final int search_bar=0x7f060034;
@@ -1271,11 +1272,11 @@ containing a value of this type.
         public static final int title=0x7f06002e;
         public static final int top_action_bar=0x7f060023;
         public static final int up=0x7f060024;
-        public static final int updateProgress=0x7f060044;
+        public static final int updateProgress=0x7f060045;
         public static final int useLogo=0x7f060003;
-        public static final int weather_forecast_text=0x7f060045;
-        public static final int weather_hourly_text=0x7f060046;
-        public static final int weather_now_text=0x7f060047;
+        public static final int weather_forecast_text=0x7f060046;
+        public static final int weather_hourly_text=0x7f060047;
+        public static final int weather_now_text=0x7f060048;
         public static final int withText=0x7f06000c;
     }
     public static final class integer {

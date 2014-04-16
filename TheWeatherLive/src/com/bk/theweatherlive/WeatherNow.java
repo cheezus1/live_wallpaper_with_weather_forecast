@@ -39,6 +39,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +74,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     String now = "No weather data available.\nPlease press the update button.";
     String hourly = "No weather data available.\nPlease press the update button.";
     String forecast = "No weather data available.\nPlease press the update button.";
+    RelativeLayout bg;
     
     public static final String AUTHORITY = "com.bk.theweatherlive.provider";
     public static final String ACCOUNT_TYPE = "example.com";
@@ -112,7 +114,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_now);
-
+        bg = (RelativeLayout)findViewById(R.id.main_activity_layout);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the app.
@@ -294,6 +296,19 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 						updateCurrentData();
 						if(mViewPager.getCurrentItem() != 0) {
 							updateForecastData();
+						}
+						//RelativeLayout bg = (RelativeLayout)findViewById(R.layout.activity_weather_now);
+						if(bg == null) {
+							Log.d("twl", "FUCK JAVA");
+						}
+						if(now.contains("CLEAR")) {
+							bg.setBackgroundResource(R.drawable.background_sunny);
+						} else if(now.contains("CLOUD")) {
+							bg.setBackgroundResource(R.drawable.background_cloudy);
+						} else if(now.contains("RAIN")) {
+							bg.setBackgroundResource(R.drawable.background_raining);
+						} else {
+							bg.setBackgroundResource(R.drawable.background_overcast);
 						}
 						updateProgress.setVisibility(View.INVISIBLE);
 					}
