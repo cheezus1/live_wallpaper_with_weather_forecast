@@ -1311,7 +1311,8 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f070019;
         public static final int action_menu_presenter=0x7f07001a;
         public static final int action_mode_close_button=0x7f070027;
-        public static final int action_settings=0x7f07004a;
+        public static final int action_refresh=0x7f07004a;
+        public static final int action_settings=0x7f070049;
         public static final int activity_chooser_view_content=0x7f070028;
         public static final int always=0x7f07000f;
         public static final int beginning=0x7f070014;
@@ -1326,7 +1327,7 @@ containing a value of this type.
         public static final int end=0x7f070016;
         public static final int expand_activities_button=0x7f070029;
         public static final int expanded_menu=0x7f07002f;
-        public static final int general_help_text=0x7f070046;
+        public static final int general_help_text=0x7f070045;
         public static final int helpList=0x7f070040;
         public static final int home=0x7f070017;
         public static final int homeAsUp=0x7f070009;
@@ -1346,7 +1347,6 @@ containing a value of this type.
         public static final int progress_circular=0x7f07001b;
         public static final int progress_horizontal=0x7f07001c;
         public static final int radio=0x7f070032;
-        public static final int refreshButton=0x7f070044;
         public static final int satellite=0x7f070002;
         public static final int search_badge=0x7f070035;
         public static final int search_bar=0x7f070034;
@@ -1369,11 +1369,11 @@ containing a value of this type.
         public static final int title=0x7f07002e;
         public static final int top_action_bar=0x7f070023;
         public static final int up=0x7f070024;
-        public static final int updateProgress=0x7f070045;
+        public static final int updateProgress=0x7f070044;
         public static final int useLogo=0x7f070007;
-        public static final int weather_forecast_text=0x7f070047;
-        public static final int weather_hourly_text=0x7f070048;
-        public static final int weather_now_text=0x7f070049;
+        public static final int weather_forecast_text=0x7f070046;
+        public static final int weather_hourly_text=0x7f070047;
+        public static final int weather_now_text=0x7f070048;
         public static final int withText=0x7f070010;
     }
     public static final class integer {
@@ -1503,9 +1503,10 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f080026;
-        public static final int action_about=0x7f08002b;
-        public static final int action_help=0x7f08002a;
-        public static final int action_settings=0x7f080029;
+        public static final int action_about=0x7f08002c;
+        public static final int action_help=0x7f08002b;
+        public static final int action_refresh=0x7f080029;
+        public static final int action_settings=0x7f08002a;
         public static final int app_name=0x7f080028;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
@@ -1530,7 +1531,7 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static final int auth_client_using_bad_version_title=0x7f080014;
-        public static final int button_close=0x7f080031;
+        public static final int button_close=0x7f080032;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -1602,34 +1603,34 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f080013;
-        public static final int hello_world=0x7f080035;
+        public static final int hello_world=0x7f080036;
         /**  Location client code resources (prefix with location_client) 
          */
         public static final int location_client_powered_by_google=0x7f08001a;
-        public static final int pref_cat_data_title=0x7f080043;
-        public static final int pref_cat_update_title=0x7f08003e;
-        public static final int pref_description_enable_auto_update=0x7f08003f;
-        public static final int pref_enable_update_on_launch_title=0x7f080042;
-        public static final int pref_forecast_days_title=0x7f080045;
-        public static final int pref_title_enable_auto_update=0x7f080040;
-        public static final int pref_title_system_sync_settings=0x7f08003d;
-        public static final int pref_units_title=0x7f080044;
-        public static final int pref_update_frequency_title=0x7f080041;
-        public static final int refresh_button=0x7f080030;
-        public static final int title_activity_action_bar_help=0x7f08003a;
-        public static final int title_activity_changing_settings_help=0x7f08003b;
-        public static final int title_activity_general_help=0x7f080034;
-        public static final int title_activity_help=0x7f080032;
-        public static final int title_activity_hourly_section_help=0x7f080036;
-        public static final int title_activity_next_days_section_help=0x7f080038;
-        public static final int title_activity_now_section_help=0x7f080037;
-        public static final int title_activity_refreshing_weather_data_help=0x7f080039;
-        public static final int title_activity_sending_feedback_help=0x7f08003c;
-        public static final int title_activity_settings=0x7f080033;
-        public static final int title_section1=0x7f08002c;
-        public static final int title_section2=0x7f08002d;
-        public static final int title_section3_part1=0x7f08002e;
-        public static final int title_section3_part2=0x7f08002f;
+        public static final int pref_cat_data_title=0x7f080044;
+        public static final int pref_cat_update_title=0x7f08003f;
+        public static final int pref_description_enable_auto_update=0x7f080040;
+        public static final int pref_enable_update_on_launch_title=0x7f080043;
+        public static final int pref_forecast_days_title=0x7f080046;
+        public static final int pref_title_enable_auto_update=0x7f080041;
+        public static final int pref_title_system_sync_settings=0x7f08003e;
+        public static final int pref_units_title=0x7f080045;
+        public static final int pref_update_frequency_title=0x7f080042;
+        public static final int refresh_button=0x7f080031;
+        public static final int title_activity_action_bar_help=0x7f08003b;
+        public static final int title_activity_changing_settings_help=0x7f08003c;
+        public static final int title_activity_general_help=0x7f080035;
+        public static final int title_activity_help=0x7f080033;
+        public static final int title_activity_hourly_section_help=0x7f080037;
+        public static final int title_activity_next_days_section_help=0x7f080039;
+        public static final int title_activity_now_section_help=0x7f080038;
+        public static final int title_activity_refreshing_weather_data_help=0x7f08003a;
+        public static final int title_activity_sending_feedback_help=0x7f08003d;
+        public static final int title_activity_settings=0x7f080034;
+        public static final int title_section1=0x7f08002d;
+        public static final int title_section2=0x7f08002e;
+        public static final int title_section3_part1=0x7f08002f;
+        public static final int title_section3_part2=0x7f080030;
     }
     public static final class style {
         /** 

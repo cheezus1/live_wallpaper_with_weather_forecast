@@ -30,7 +30,7 @@
 	        android:textColor="#fff" />
 
 	</android.support.v4.view.ViewPager>
-
+ 	<!-- 
 	<ImageButton
 	    android:id="@+id/refreshButton"
 	    android:layout_width="wrap_content"
@@ -39,15 +39,14 @@
 	    android:layout_alignParentRight="true"
 	    android:background="@null"
 	    android:contentDescription="@string/refresh_button"
-	    android:src="@drawable/refresh_button" />
+	    android:src="@drawable/refresh_button" />  -->
 
 	<ProgressBar
 	    android:id="@+id/updateProgress"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
-	    android:layout_alignTop="@+id/refreshButton"
-	    android:layout_toLeftOf="@+id/refreshButton"
-	    android:layout_marginRight="-12dp"
+	    android:layout_gravity="bottom"
+	    android:layout_alignParentRight="true"
 	    android:visibility="invisible"/>
 </RelativeLayout>

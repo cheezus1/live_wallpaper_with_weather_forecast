@@ -133,7 +133,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         MIN_TIME_BETWEEN_UPDATES = 1000 * 60 * Long.parseLong(preferences.getString("update_frequency", "1"));
         
-        initRefreshButton();
+       // initRefreshButton();
         
         mAccount = CreateSyncAccount(this);
     }
@@ -178,7 +178,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     	return null;
     }
 
-    public void initRefreshButton() {
+    /*public void initRefreshButton() {
     	refreshButton = (ImageButton) findViewById(R.id.refreshButton);
     	
     	refreshButton.setOnClickListener(new OnClickListener() {
@@ -188,7 +188,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 				sync();
 			}
     	});
-    }
+    }*/
     
     public void sync() {
     	final View updateProgress = findViewById(R.id.updateProgress);
@@ -371,7 +371,11 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     
     public boolean onOptionsItemSelected(MenuItem item) {
     	int itemId = item.getItemId();
-		if (itemId == R.id.action_settings) {
+    	if (itemId == R.id.action_refresh) {
+    		sync();
+    		updateInUi();
+    		return true;
+    	} else if (itemId == R.id.action_settings) {
 			Intent settingsActivityIntent = new Intent(this, SettingsActivity.class);
 			startActivity(settingsActivityIntent, null);
 			return true;

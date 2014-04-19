@@ -29,7 +29,7 @@ public class HelpActivity extends Activity {
 							"Next days section",
 							"Refreshing weather data",
 							"Action bar",
-							"Changing settings of the application",
+							"Changing settings of the app",
 							"Send feedback"};
   
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
