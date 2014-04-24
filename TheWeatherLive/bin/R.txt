@@ -4,6 +4,7 @@ int anim abc_slide_in_bottom 0x7f040002
 int anim abc_slide_in_top 0x7f040003
 int anim abc_slide_out_bottom 0x7f040004
 int anim abc_slide_out_top 0x7f040005
+int anim rotate_clockwise 0x7f040006
 int array pref_forecast_days_entries 0x7f0d0004
 int array pref_forecast_days_values 0x7f0d0005
 int array pref_units_entries 0x7f0d0002
@@ -433,7 +434,8 @@ int layout fragment_sending_feedback_help 0x7f030029
 int layout fragment_weather_now_forecast 0x7f03002a
 int layout fragment_weather_now_hourly 0x7f03002b
 int layout fragment_weather_now_now 0x7f03002c
-int layout support_simple_spinner_dropdown_item 0x7f03002d
+int layout rotate_clockwise 0x7f03002d
+int layout support_simple_spinner_dropdown_item 0x7f03002e
 int menu action_bar_help 0x7f0e0000
 int menu changing_settings_help 0x7f0e0001
 int menu general_help 0x7f0e0002

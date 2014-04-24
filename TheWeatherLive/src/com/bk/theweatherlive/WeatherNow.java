@@ -37,9 +37,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,6 +79,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     String forecast = "No weather data available.\nPlease press the update button.";
     RelativeLayout bg;
     private WallpaperManager mWallpaperManager;
+    private Animation refreshButtonAnimation;
     
     public static final String AUTHORITY = "com.bk.theweatherlive.provider";
     public static final String ACCOUNT_TYPE = "example.com";
@@ -134,6 +137,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
         MIN_TIME_BETWEEN_UPDATES = 1000 * 60 * Long.parseLong(preferences.getString("update_frequency", "1"));
         
        // initRefreshButton();
+        refreshButtonAnimation = AnimationUtils.loadAnimation(this, R.layout.rotate_clockwise);
         
         mAccount = CreateSyncAccount(this);
     }
@@ -199,7 +203,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						updateProgress.setVisibility(View.VISIBLE);
+						//updateProgress.setVisibility(View.VISIBLE);
 					}
 				});
 				mCurrentLocation = mLocationClient.getLastLocation();
@@ -333,7 +337,8 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 						} catch(IOException e) {
 							Toast.makeText(getApplicationContext(), "Error while changing the wallpaper", Toast.LENGTH_SHORT).show();
 						}
-						updateProgress.setVisibility(View.INVISIBLE);
+						//updateProgress.setVisibility(View.INVISIBLE);
+						findViewById(R.id.action_refresh).clearAnimation();
 					}
 				});
 			}
@@ -373,7 +378,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     	int itemId = item.getItemId();
     	if (itemId == R.id.action_refresh) {
     		sync();
-    		updateInUi();
+    		findViewById(R.id.action_refresh).startAnimation(refreshButtonAnimation);
     		return true;
     	} else if (itemId == R.id.action_settings) {
 			Intent settingsActivityIntent = new Intent(this, SettingsActivity.class);

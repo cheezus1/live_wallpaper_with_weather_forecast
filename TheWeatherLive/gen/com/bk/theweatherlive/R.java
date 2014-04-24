@@ -15,6 +15,7 @@ public final class R {
         public static final int abc_slide_in_top=0x7f040003;
         public static final int abc_slide_out_bottom=0x7f040004;
         public static final int abc_slide_out_top=0x7f040005;
+        public static final int rotate_clockwise=0x7f040006;
     }
     public static final class array {
         public static final int pref_forecast_days_entries=0x7f0d0004;
@@ -1448,7 +1449,8 @@ containing a value of this type.
         public static final int fragment_weather_now_forecast=0x7f03002a;
         public static final int fragment_weather_now_hourly=0x7f03002b;
         public static final int fragment_weather_now_now=0x7f03002c;
-        public static final int support_simple_spinner_dropdown_item=0x7f03002d;
+        public static final int rotate_clockwise=0x7f03002d;
+        public static final int support_simple_spinner_dropdown_item=0x7f03002e;
     }
     public static final class menu {
         public static final int action_bar_help=0x7f0e0000;
