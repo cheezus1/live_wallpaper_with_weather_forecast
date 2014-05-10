@@ -1609,15 +1609,15 @@ containing a value of this type.
         /**  Location client code resources (prefix with location_client) 
          */
         public static final int location_client_powered_by_google=0x7f08001a;
-        public static final int pref_cat_data_title=0x7f080044;
-        public static final int pref_cat_update_title=0x7f08003f;
-        public static final int pref_description_enable_auto_update=0x7f080040;
-        public static final int pref_enable_update_on_launch_title=0x7f080043;
-        public static final int pref_forecast_days_title=0x7f080046;
-        public static final int pref_title_enable_auto_update=0x7f080041;
-        public static final int pref_title_system_sync_settings=0x7f08003e;
-        public static final int pref_units_title=0x7f080045;
-        public static final int pref_update_frequency_title=0x7f080042;
+        public static final int pref_cat_data_title=0x7f080045;
+        public static final int pref_cat_update_title=0x7f080040;
+        public static final int pref_description_enable_auto_update=0x7f080041;
+        public static final int pref_enable_update_on_launch_title=0x7f080044;
+        public static final int pref_forecast_days_title=0x7f080047;
+        public static final int pref_title_enable_auto_update=0x7f080042;
+        public static final int pref_title_system_sync_settings=0x7f08003f;
+        public static final int pref_units_title=0x7f080046;
+        public static final int pref_update_frequency_title=0x7f080043;
         public static final int refresh_button=0x7f080031;
         public static final int title_activity_action_bar_help=0x7f08003b;
         public static final int title_activity_changing_settings_help=0x7f08003c;
@@ -1633,6 +1633,7 @@ containing a value of this type.
         public static final int title_section2=0x7f08002e;
         public static final int title_section3_part1=0x7f08002f;
         public static final int title_section3_part2=0x7f080030;
+        public static final int wallpaper_description=0x7f08003e;
     }
     public static final class style {
         /** 
@@ -1871,6 +1872,7 @@ containing a value of this type.
         public static final int pref_update=0x7f050003;
         public static final int pref_weather_data=0x7f050004;
         public static final int sync_adapter=0x7f050005;
+        public static final int the_weather_live_glwallpaper=0x7f050006;
     }
     public static final class styleable {
         /**  ============================================ 
