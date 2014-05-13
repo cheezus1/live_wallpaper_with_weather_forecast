@@ -1,6 +1,12 @@
 package com.bk.theweatherlive;
 
 import net.rbgrn.android.glwallpaperservice.GLWallpaperService;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
 
 public class TheWeatherLiveWallpaperService extends GLWallpaperService {
 
@@ -13,7 +19,7 @@ public class TheWeatherLiveWallpaperService extends GLWallpaperService {
 		return engine;
 	}
 	
-	class TheWeatherLiveEngine  extends GLEngine {
+	class TheWeatherLiveEngine  extends GLEngine implements SensorEventListener {
 		TheWeatherLiveRenderer renderer;
 		
 		public TheWeatherLiveEngine() {
@@ -24,12 +30,46 @@ public class TheWeatherLiveWallpaperService extends GLWallpaperService {
 		}
 		
 		public void onDestroy() {
-			super.onDestroy();
+			
+			sensorManager.unregisterListener(this);
 			
 			if(renderer != null) {
 				renderer.release();
 			}
 			renderer = null;
+			
+			setTouchEventsEnabled(false);
+			
+			super.onDestroy();
+		}
+		
+		private SensorManager sensorManager;
+		
+		@Override
+		public void onTouchEvent(MotionEvent event) {
+			super.onTouchEvent(event);
+			renderer.onTouchEvent(event);
+		}
+		
+		@Override
+		public void onCreate(SurfaceHolder surfaceHolder) {
+			super.onCreate(surfaceHolder);
+			
+			setTouchEventsEnabled(true);
+			
+			sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+			Sensor orientationSensor = sensorManager.getDefaultSensor(SensorManager.SENSOR_ORIENTATION);
+			sensorManager.registerListener(this, orientationSensor, SensorManager.SENSOR_DELAY_GAME);
+		}
+		
+		public void onSensorChanged(SensorEvent event) {
+			
+		}
+
+		@Override
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 	
