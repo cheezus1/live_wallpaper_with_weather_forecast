@@ -23,6 +23,5 @@
     <string name="title_activity_action_bar_help">Action bar</string>
     <string name="title_activity_changing_settings_help">Changing settings of the application</string>
     <string name="title_activity_sending_feedback_help">Sending feedback</string>
-    <string name="wallpaper_description">The Weather Live Wallpaper</string>
 
 </resources>

@@ -377,10 +377,8 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     public boolean onOptionsItemSelected(MenuItem item) {
     	int itemId = item.getItemId();
     	if (itemId == R.id.action_refresh) {
-    		findViewById(R.id.action_refresh).startAnimation(refreshButtonAnimation);
     		sync();
-    		Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
-    		startActivity(intent);
+    		findViewById(R.id.action_refresh).startAnimation(refreshButtonAnimation);
     		return true;
     	} else if (itemId == R.id.action_settings) {
 			Intent settingsActivityIntent = new Intent(this, SettingsActivity.class);
