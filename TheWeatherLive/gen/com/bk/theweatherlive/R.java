@@ -1872,6 +1872,7 @@ containing a value of this type.
         public static final int pref_update=0x7f050003;
         public static final int pref_weather_data=0x7f050004;
         public static final int sync_adapter=0x7f050005;
+        public static final int the_weather_live_glwallpaper=0x7f050006;
     }
     public static final class styleable {
         /**  ============================================ 
