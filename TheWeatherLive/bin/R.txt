@@ -794,4 +794,3 @@ int xml pref_headers 0x7f050002
 int xml pref_update 0x7f050003
 int xml pref_weather_data 0x7f050004
 int xml sync_adapter 0x7f050005
-int xml the_weather_live_glwallpaper 0x7f050006
