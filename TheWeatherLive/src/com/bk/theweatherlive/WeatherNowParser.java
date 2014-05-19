@@ -6,7 +6,6 @@ import java.util.Locale;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.util.Log;
 import android.util.Xml;
 
 public class WeatherNowParser {
@@ -23,11 +22,19 @@ public class WeatherNowParser {
 	}
 	
 	private String readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
-		StringBuilder stringBuilder = new StringBuilder();
+		String weatherCode = "";
+		String cityName = "";
+		String temp = "";
+		String maxTemp = "";
+		String minTemp = "";
+		String humidity = "";
+		String pressure = "";
+		String wind = "";
+		String weatherString = "";
+		
 		Boolean celsius = false;
 		
 		while(parser.next() != XmlPullParser.END_DOCUMENT) {
-			Log.d("TWL", "STARTED PARSING");
 			
 			if(parser.getEventType() != XmlPullParser.START_TAG) {
 				continue;
@@ -35,39 +42,34 @@ public class WeatherNowParser {
 			
 			String name = parser.getName();
 			if(name.equals("city")) {
-				Log.d("TWL", "ENTERED CASE CITY");
-				stringBuilder.append(parser.getAttributeValue(1) + " \n");
+				cityName = parser.getAttributeValue(1) + " \n";
 			} else if(name.equals("temperature")) {
-				Log.d("TWL", "ENTERED CASE TEMP");
 				celsius = parser.getAttributeValue(3).equals("celsius");
-				stringBuilder.append(parser.getAttributeValue(0));
+				temp = parser.getAttributeValue(0);
 				if(celsius) {
-					stringBuilder.append("°C \n" + "High: " + parser.getAttributeValue(2) + "°C Low: " + parser.getAttributeValue(1) + "°C \n");
+					temp += "°C \n";
+					maxTemp = parser.getAttributeValue(2) + "°C \n";
+					minTemp = parser.getAttributeValue(1) + "°C \n";
 				} else {
-					stringBuilder.append("°F \n" + "High: " + parser.getAttributeValue(2) + "°F Low: " + parser.getAttributeValue(1) + "°F \n");
+					temp += "°F \n";
+					maxTemp = parser.getAttributeValue(2) + "°F \n";
+					minTemp = parser.getAttributeValue(1) + "°F \n";
 				}
 			} else if(name.equals("humidity")) {
-				Log.d("TWL", "ENTERED CASE HUMIDITY");
-				stringBuilder.append("Humidity: " + parser.getAttributeValue(0) + parser.getAttributeValue(1) + " \n");
+				humidity = parser.getAttributeValue(0) + parser.getAttributeValue(1) + " \n";
 			} else if(name.equals("pressure")) {
-				Log.d("TWL", "ENTERED CASE PRESSURE");
-				stringBuilder.append("Pressure: " + parser.getAttributeValue(0) + parser.getAttributeValue(1) + " \n");
+				pressure = parser.getAttributeValue(0) + parser.getAttributeValue(1) + " \n";
 			} else if(name.equals("weather")) {
-				Log.d("TWL", "ENTERED CASE WEATHER");
-				stringBuilder.append(parser.getAttributeValue(1).toUpperCase(Locale.getDefault()) + " \n");
+				weatherCode = parser.getAttributeValue(0) + "\n";
+				weatherString = parser.getAttributeValue(1).toUpperCase(Locale.getDefault()) + " \n";
 			} else if(name.equals("speed")) {
-				Log.d("TWL", "ENTERED CASE WIND SPEED");
 				if(celsius) {
-					stringBuilder.append("Wind: "  + parser.getAttributeValue(0) + " km/h, ");
+					wind = parser.getAttributeValue(0) + " km/h \n";
 				} else {
-					stringBuilder.append("Wind: "  + parser.getAttributeValue(0) + " mph, ");
+					wind = parser.getAttributeValue(0) + " mph \n";
 				}
-			} else if(name.equals("direction")) {
-				Log.d("TWL", "ENTERED CASE WIND DIRECTION");
-				stringBuilder.append(parser.getAttributeValue(2) + " \n");
 			}
 		}
-		Log.d("TWL", stringBuilder.toString());
-		return stringBuilder.toString();
+		return weatherCode + cityName +  temp + maxTemp + minTemp + humidity + pressure + wind + weatherString;
 	}
 }

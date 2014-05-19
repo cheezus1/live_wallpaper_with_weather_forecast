@@ -56,13 +56,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 						try {
 							WeatherNowParser parser = new WeatherNowParser();
 							String data = parser.parse(weatherApi.openStream());
-							Log.d("TWL", data);
 							try {
 					            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContext().openFileOutput(NOW_FILE, Context.MODE_PRIVATE));
-					            Log.d("twl", "opened file");
 					            outputStreamWriter.write(data);
 					            outputStreamWriter.close();
-					            Log.d("twl", "opened file");
 							}
 					        catch (IOException e) {
 					            Log.e(TAG, "File write failed: " + e.toString());
@@ -82,13 +79,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 						try {
 							HourlyParser parser = new HourlyParser();
 							String hourlyData = parser.parse(hourlyWeatherApi.openStream());
-							Log.d("TWL", hourlyData);
 							try {
 					            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContext().openFileOutput(HOURLY_FILE, Context.MODE_PRIVATE));
-					            Log.d("twl", "opened file");
 					            outputStreamWriter.write(hourlyData);
 					            outputStreamWriter.close();
-					            Log.d("twl", "opened file");
 							}
 					        catch (IOException e) {
 					            Log.e(TAG, "File write failed: " + e.toString());
@@ -108,13 +102,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 						try {
 							ForecastParser parser = new ForecastParser();
 							String forecastData = parser.parse(forecastWeatherApi.openStream(), units);
-							Log.d("TWL", forecastData);
 							try {
 					            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getContext().openFileOutput(FORECAST_FILE, Context.MODE_PRIVATE));
-					            Log.d("twl", "opened file");
 					            outputStreamWriter.write(forecastData);
 					            outputStreamWriter.close();
-					            Log.d("twl", "opened file");
 							}
 					        catch (IOException e) {
 					            Log.e(TAG, "File write failed: " + e.toString());

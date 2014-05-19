@@ -41,7 +41,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -197,7 +196,6 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     public void sync() {
     	final View updateProgress = findViewById(R.id.updateProgress);
     	Thread thread = new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				runOnUiThread(new Runnable() {
