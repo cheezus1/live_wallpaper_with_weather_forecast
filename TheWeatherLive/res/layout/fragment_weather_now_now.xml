@@ -12,7 +12,74 @@
         android:id="@+id/weather_now_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:scrollbars="vertical" />
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/nowCityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/weather_now_text"
+        android:layout_below="@+id/weather_now_text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/nowTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nowCityName"
+        android:layout_below="@+id/nowCityName"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/nowMaxTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nowTemp"
+        android:layout_below="@+id/nowTemp"
+        android:textColor="#E05738"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/nowMinTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/nowMaxTemp"
+        android:layout_alignBottom="@+id/nowMaxTemp"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/nowMaxTemp"
+        android:textColor="#38C1E0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/nowCondition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nowMaxTemp"
+        android:layout_below="@+id/nowMaxTemp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/nowHumidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nowCondition"
+        android:layout_below="@+id/nowCondition"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/nowPressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nowHumidity"
+        android:layout_below="@+id/nowHumidity"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/nowWind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nowPressure"
+        android:layout_below="@+id/nowPressure"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

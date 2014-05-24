@@ -15,4 +15,9 @@
         android:textColor="#ffffff"
         android:scrollbars="vertical" />
 
+     <ListView
+        android:id="@+id/forecastListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+     
 </RelativeLayout>

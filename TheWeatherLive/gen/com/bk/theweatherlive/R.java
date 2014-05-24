@@ -1203,7 +1203,7 @@ containing a value of this type.
         public static final int refresh_pressed=0x7f02007e;
     }
     public static final class id {
-        public static final int action_about=0x7f07004c;
+        public static final int action_about=0x7f070059;
         public static final int action_bar=0x7f07001f;
         public static final int action_bar_activity_content=0x7f070018;
         public static final int action_bar_container=0x7f07001e;
@@ -1212,12 +1212,12 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f070026;
         public static final int action_bar_title=0x7f070025;
         public static final int action_context_bar=0x7f070020;
-        public static final int action_help=0x7f07004b;
+        public static final int action_help=0x7f070058;
         public static final int action_menu_divider=0x7f070019;
         public static final int action_menu_presenter=0x7f07001a;
         public static final int action_mode_close_button=0x7f070027;
-        public static final int action_refresh=0x7f07004a;
-        public static final int action_settings=0x7f070049;
+        public static final int action_refresh=0x7f070057;
+        public static final int action_settings=0x7f070056;
         public static final int activity_chooser_view_content=0x7f070028;
         public static final int always=0x7f07000f;
         public static final int beginning=0x7f070014;
@@ -1232,14 +1232,19 @@ containing a value of this type.
         public static final int end=0x7f070016;
         public static final int expand_activities_button=0x7f070029;
         public static final int expanded_menu=0x7f07002f;
+        public static final int forecastListView=0x7f07004a;
         public static final int general_help_text=0x7f070045;
         public static final int helpList=0x7f070040;
         public static final int home=0x7f070017;
         public static final int homeAsUp=0x7f070009;
+        public static final int hourlyListView=0x7f07004c;
         public static final int hybrid=0x7f070004;
         public static final int icon=0x7f07002d;
         public static final int ifRoom=0x7f07000e;
         public static final int image=0x7f07002a;
+        public static final int listItemCondition=0x7f070048;
+        public static final int listItemDate=0x7f070046;
+        public static final int listItemTemp=0x7f070047;
         public static final int listMode=0x7f070005;
         public static final int list_item=0x7f07002c;
         public static final int main_activity_layout=0x7f070041;
@@ -1247,6 +1252,14 @@ containing a value of this type.
         public static final int never=0x7f07000d;
         public static final int none=0x7f070000;
         public static final int normal=0x7f070001;
+        public static final int nowCityName=0x7f07004e;
+        public static final int nowCondition=0x7f070052;
+        public static final int nowHumidity=0x7f070053;
+        public static final int nowMaxTemp=0x7f070050;
+        public static final int nowMinTemp=0x7f070051;
+        public static final int nowPressure=0x7f070054;
+        public static final int nowTemp=0x7f07004f;
+        public static final int nowWind=0x7f070055;
         public static final int pager=0x7f070042;
         public static final int pager_title_strip=0x7f070043;
         public static final int progress_circular=0x7f07001b;
@@ -1276,9 +1289,9 @@ containing a value of this type.
         public static final int up=0x7f070024;
         public static final int updateProgress=0x7f070044;
         public static final int useLogo=0x7f070007;
-        public static final int weather_forecast_text=0x7f070046;
-        public static final int weather_hourly_text=0x7f070047;
-        public static final int weather_now_text=0x7f070048;
+        public static final int weather_forecast_text=0x7f070049;
+        public static final int weather_hourly_text=0x7f07004b;
+        public static final int weather_now_text=0x7f07004d;
         public static final int withText=0x7f070010;
     }
     public static final class integer {
@@ -1345,15 +1358,16 @@ containing a value of this type.
         public static final int fragment_changing_settings_help=0x7f030022;
         public static final int fragment_general_help=0x7f030023;
         public static final int fragment_hourly_section_help=0x7f030024;
-        public static final int fragment_next_days_section_help=0x7f030025;
-        public static final int fragment_now_section_help=0x7f030026;
-        public static final int fragment_refreshing_weather_data_help=0x7f030027;
-        public static final int fragment_sending_feedback_help=0x7f030028;
-        public static final int fragment_weather_now_forecast=0x7f030029;
-        public static final int fragment_weather_now_hourly=0x7f03002a;
-        public static final int fragment_weather_now_now=0x7f03002b;
-        public static final int rotate_clockwise=0x7f03002c;
-        public static final int support_simple_spinner_dropdown_item=0x7f03002d;
+        public static final int fragment_list_view=0x7f030025;
+        public static final int fragment_next_days_section_help=0x7f030026;
+        public static final int fragment_now_section_help=0x7f030027;
+        public static final int fragment_refreshing_weather_data_help=0x7f030028;
+        public static final int fragment_sending_feedback_help=0x7f030029;
+        public static final int fragment_weather_now_forecast=0x7f03002a;
+        public static final int fragment_weather_now_hourly=0x7f03002b;
+        public static final int fragment_weather_now_now=0x7f03002c;
+        public static final int rotate_clockwise=0x7f03002d;
+        public static final int support_simple_spinner_dropdown_item=0x7f03002e;
     }
     public static final class menu {
         public static final int action_bar_help=0x7f0e0000;

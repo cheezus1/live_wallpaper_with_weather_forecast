@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.accounts.Account;
@@ -41,6 +42,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,9 +75,9 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     SharedPreferences preferences;
     Account mAccount;
     final Handler mHandler = new Handler();
-    String now = "No weather data available.\nPlease press the update button.";
-    String hourly = "No weather data available.\nPlease press the update button.";
-    String forecast = "No weather data available.\nPlease press the update button.";
+    CurrentData now = new CurrentData();
+    ArrayList<ForecastData> hourly = new ArrayList<ForecastData>();
+    ArrayList<ForecastData> forecast = new ArrayList<ForecastData>();
     RelativeLayout bg;
     private WallpaperManager mWallpaperManager;
     private Animation refreshButtonAnimation;
@@ -231,14 +233,23 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 				            if ( inputStream != null ) {
 				                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-				                StringBuilder stringBuilder = new StringBuilder();
-				                 
-				                while ( (hourly = bufferedReader.readLine()) != null ) {
-				                    stringBuilder.append(hourly + "\n");
+				                String buffer = "";
+				                hourly.clear();
+				                int index = 0;
+				                
+				                while ( (buffer = bufferedReader.readLine()) != null ) {
+				                    ForecastData temporary = new ForecastData();
+				                	temporary.setWeatherCode(Integer.parseInt(buffer));
+				                    temporary.setTime(bufferedReader.readLine());
+				                    temporary.setTemp(bufferedReader.readLine());
+				                    temporary.setMaxTemp(bufferedReader.readLine());
+				                    temporary.setMinTemp(bufferedReader.readLine());
+				                    temporary.setWeatherString(bufferedReader.readLine());
+				                    hourly.add(index, temporary);
+				                    index++;
 				                }
 				                 
 				                inputStream.close();
-				                hourly = stringBuilder.toString();
 				            }
 				        } catch (FileNotFoundException e) {
 				            
@@ -252,14 +263,18 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 				            if ( inputStream != null ) {
 				                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-				                StringBuilder stringBuilder = new StringBuilder();
 				                 
-				                while ( (now = bufferedReader.readLine()) != null ) {
-				                    stringBuilder.append(now + "\n");
-				                }
+				                now.setWeatherCode(Integer.parseInt(bufferedReader.readLine()));
+				                now.setCityName(bufferedReader.readLine());
+				                now.setTemp(bufferedReader.readLine());
+				                now.setMaxTemp(bufferedReader.readLine());
+				                now.setMinTemp(bufferedReader.readLine());
+				                now.setHumidity(bufferedReader.readLine());
+				                now.setPressure(bufferedReader.readLine());
+				                now.setWind(bufferedReader.readLine());
+				                now.setWeatherString(bufferedReader.readLine());
 				                 
 				                inputStream.close();
-				                now = stringBuilder.toString();
 				            }
 				        } catch (FileNotFoundException e) {
 				            
@@ -273,14 +288,23 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 				            if ( inputStream != null ) {
 				                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 				                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-				                StringBuilder stringBuilder = new StringBuilder();
+				                String buffer = "";
+				                forecast.clear();
+				                int index = 0;
 				                 
-				                while ( (forecast = bufferedReader.readLine()) != null ) {
-				                    stringBuilder.append(forecast + "\n");
+				                while ( (buffer = bufferedReader.readLine()) != null ) {
+				                    ForecastData temporary = new ForecastData();
+				                	temporary.setWeatherCode(Integer.parseInt(buffer));
+				                    temporary.setTime(bufferedReader.readLine());
+				                    temporary.setTemp(bufferedReader.readLine());
+				                    temporary.setMaxTemp(bufferedReader.readLine());
+				                    temporary.setMinTemp(bufferedReader.readLine());
+				                    temporary.setWeatherString(bufferedReader.readLine());
+				                    forecast.add(index, temporary);
+				                    index++;
 				                }
 				                 
 				                inputStream.close();
-				                forecast = stringBuilder.toString();
 				            }
 				        } catch (FileNotFoundException e) {
 				            
@@ -302,7 +326,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 							updateForecastData();
 						}
 						//RelativeLayout bg = (RelativeLayout)findViewById(R.layout.activity_weather_now);
-						if(bg == null) {
+						/*if(bg == null) {
 							Log.d("twl", "FUCK JAVA");
 						}
 						mWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
@@ -334,7 +358,7 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 							}
 						} catch(IOException e) {
 							Toast.makeText(getApplicationContext(), "Error while changing the wallpaper", Toast.LENGTH_SHORT).show();
-						}
+						}*/
 						//updateProgress.setVisibility(View.INVISIBLE);
 						findViewById(R.id.action_refresh).clearAnimation();
 					}
@@ -345,24 +369,30 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
     }
     
     private void updateHourlyData() {
-    	TextView mainText;
-    	mainText = (TextView) findViewById(R.id.weather_hourly_text);
-		mainText.setMovementMethod(new ScrollingMovementMethod());
-		mainText.setText(hourly);
+    	if (!(hourly.isEmpty())) {
+        	ListView hourlyListView = (ListView) findViewById(R.id.hourlyListView);
+        	MyArrayAdapter hourlyArrayAdapter = new MyArrayAdapter(this, hourly);
+        	hourlyListView.setAdapter(hourlyArrayAdapter);
+    	}
     }
     
     private void updateCurrentData() {
-    	TextView mainText;
-    	mainText = (TextView) findViewById(R.id.weather_now_text);
-		mainText.setMovementMethod(new ScrollingMovementMethod());
-		mainText.setText(now);
+		((TextView) findViewById(R.id.nowCityName)).setText(now.getCityName());
+		((TextView) findViewById(R.id.nowTemp)).setText(now.getTemp());
+		((TextView) findViewById(R.id.nowMaxTemp)).setText(now.getMaxTemp());
+		((TextView) findViewById(R.id.nowMinTemp)).setText(now.getMinTemp());
+		((TextView) findViewById(R.id.nowCondition)).setText(now.getWeatherString());
+		((TextView) findViewById(R.id.nowHumidity)).setText("Humidity: " + now.getHumidity());
+		((TextView) findViewById(R.id.nowPressure)).setText("Pressure: " + now.getPressure());
+		((TextView) findViewById(R.id.nowWind)).setText("Wind: " + now.getWind());
     }
     
     private void updateForecastData() {
-    	TextView mainText;
-    	mainText = (TextView) findViewById(R.id.weather_forecast_text);
-		mainText.setMovementMethod(new ScrollingMovementMethod());
-		mainText.setText(forecast);
+    	if(!(forecast.isEmpty())) {
+    		ListView forecastListView = (ListView) findViewById(R.id.forecastListView);
+        	MyArrayAdapter forecastArrayAdapter = new MyArrayAdapter(this, forecast);
+        	forecastListView.setAdapter(forecastArrayAdapter);
+    	}
     }
     
     @Override
