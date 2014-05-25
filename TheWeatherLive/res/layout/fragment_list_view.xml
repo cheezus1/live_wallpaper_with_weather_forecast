@@ -26,5 +26,13 @@
         android:layout_alignLeft="@+id/listItemTemp"
         android:layout_below="@+id/listItemTemp"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ImageView
+        android:id="@+id/listItemIcon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/listItemDate"
+        android:scaleType="centerInside" />
     
 </RelativeLayout>

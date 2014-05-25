@@ -42,6 +42,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -385,6 +386,9 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 		((TextView) findViewById(R.id.nowHumidity)).setText("Humidity: " + now.getHumidity());
 		((TextView) findViewById(R.id.nowPressure)).setText("Pressure: " + now.getPressure());
 		((TextView) findViewById(R.id.nowWind)).setText("Wind: " + now.getWind());
+		WeatherCodeParser parser = new WeatherCodeParser();
+		ImageView icon = (ImageView) findViewById(R.id.nowIcon);
+		icon.setImageResource(parser.getIcon(now.getWeatherCode()));
     }
     
     private void updateForecastData() {

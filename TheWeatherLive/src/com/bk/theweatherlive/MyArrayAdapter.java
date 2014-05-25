@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MyArrayAdapter extends ArrayAdapter<ForecastData> {
@@ -18,7 +19,6 @@ public class MyArrayAdapter extends ArrayAdapter<ForecastData> {
 		super(context, R.layout.fragment_list_view, data);
 		this.context = context;
 		this.data = data;
-		Log.d("twl", "Yay, passed constructor");
 	}
 	
 	@Override
@@ -29,6 +29,10 @@ public class MyArrayAdapter extends ArrayAdapter<ForecastData> {
 		((TextView) listFragment.findViewById(R.id.listItemDate)).setText(element.getTime());
 		((TextView) listFragment.findViewById(R.id.listItemTemp)).setText(element.getTemp());
 		((TextView) listFragment.findViewById(R.id.listItemCondition)).setText(element.getWeatherString());
+		WeatherCodeParser parser = new WeatherCodeParser();
+		ImageView icon = (ImageView) listFragment.findViewById(R.id.listItemIcon);
+		icon.setImageResource(parser.getIcon(element.getWeatherCode()));
+		
 		return listFragment;
 	}
 }
