@@ -326,8 +326,8 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 						if(mViewPager.getCurrentItem() != 0) {
 							updateForecastData();
 						}
-						//RelativeLayout bg = (RelativeLayout)findViewById(R.layout.activity_weather_now);
-						/*if(bg == null) {
+						/*RelativeLayout bg = (RelativeLayout)findViewById(R.layout.activity_weather_now);
+						if(bg == null) {
 							Log.d("twl", "FUCK JAVA");
 						}
 						mWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
@@ -389,6 +389,16 @@ public class WeatherNow extends FragmentActivity implements GooglePlayServicesCl
 		WeatherCodeParser parser = new WeatherCodeParser();
 		ImageView icon = (ImageView) findViewById(R.id.nowIcon);
 		icon.setImageResource(parser.getIcon(now.getWeatherCode()));
+		bg.setBackgroundResource(parser.getWallpaper(now.getWeatherCode()));
+		if(preferences.getBoolean("change_wallpaper", false)) {
+			try {
+				mWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
+				mWallpaperManager.setResource(parser.getWallpaper(now.getWeatherCode()));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
     }
     
     private void updateForecastData() {

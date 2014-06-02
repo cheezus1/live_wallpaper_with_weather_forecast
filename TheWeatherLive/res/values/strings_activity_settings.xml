@@ -49,4 +49,7 @@
         <item>14</item>
     </string-array>
     
+    <string name="pref_title_change_wallpaper">Change wallpaper</string>
+    <string name="pref_description_change_wallpaper">Change device wallpaper based on the weather data</string>
+    
 </resources>

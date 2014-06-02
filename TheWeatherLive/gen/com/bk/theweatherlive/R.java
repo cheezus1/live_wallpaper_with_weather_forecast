@@ -1213,7 +1213,16 @@ containing a value of this type.
         public static final int snow=0x7f020088;
         public static final int thunderstorm=0x7f020089;
         public static final int tornado=0x7f02008a;
-        public static final int wind=0x7f02008b;
+        public static final int wall_clear=0x7f02008b;
+        public static final int wall_cloudy=0x7f02008c;
+        public static final int wall_fog=0x7f02008d;
+        public static final int wall_overcast=0x7f02008e;
+        public static final int wall_rain=0x7f02008f;
+        public static final int wall_snow=0x7f020090;
+        public static final int wall_thunderstorm=0x7f020091;
+        public static final int wall_tornado=0x7f020092;
+        public static final int wall_wind=0x7f020093;
+        public static final int wind=0x7f020094;
     }
     public static final class id {
         public static final int action_about=0x7f07005b;
@@ -1543,9 +1552,11 @@ containing a value of this type.
         public static final int location_client_powered_by_google=0x7f08001a;
         public static final int pref_cat_data_title=0x7f080044;
         public static final int pref_cat_update_title=0x7f08003f;
+        public static final int pref_description_change_wallpaper=0x7f080048;
         public static final int pref_description_enable_auto_update=0x7f080040;
         public static final int pref_enable_update_on_launch_title=0x7f080043;
         public static final int pref_forecast_days_title=0x7f080046;
+        public static final int pref_title_change_wallpaper=0x7f080047;
         public static final int pref_title_enable_auto_update=0x7f080041;
         public static final int pref_title_system_sync_settings=0x7f08003e;
         public static final int pref_units_title=0x7f080045;
@@ -1784,10 +1795,11 @@ containing a value of this type.
     public static final class xml {
         public static final int authenticator=0x7f050000;
         public static final int pref_dummy=0x7f050001;
-        public static final int pref_headers=0x7f050002;
-        public static final int pref_update=0x7f050003;
-        public static final int pref_weather_data=0x7f050004;
-        public static final int sync_adapter=0x7f050005;
+        public static final int pref_general=0x7f050002;
+        public static final int pref_headers=0x7f050003;
+        public static final int pref_update=0x7f050004;
+        public static final int pref_weather_data=0x7f050005;
+        public static final int sync_adapter=0x7f050006;
     }
     public static final class styleable {
         /**  ============================================ 
